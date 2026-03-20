@@ -510,3 +510,320 @@ a { text-decoration: none; color: inherit; }
     font-size: clamp(32px, 9vw, 44px);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CUBE STORE SECTION
+   ─────────────────────────────────────────────────────────────────────────
+   Desktop: two-column grid — copy left, mockup right
+   Accent colour is CUBE's brand purple, not our gold, to make it distinct
+   Floating chips sit over the mockup image at top-left and bottom-right
+   Mobile: single column, mockup below copy, chips repositioned
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Section wrapper */
+.cube {
+  padding: var(--section-py) 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+}
+
+/* Subtle purple tint in the background — sets it apart from other sections */
+.cube::before {
+  content:  '';
+  position: absolute;
+  top:      -30%;
+  right:    -10%;
+  width:    50vw;
+  height:   50vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── Two-column grid ──────────────────────────────────────────────────────── */
+.cube__grid {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   80px;
+  align-items:           center;
+}
+
+/* ── Left column ──────────────────────────────────────────────────────────── */
+.cube__left {
+  display:        flex;
+  flex-direction: column;
+  gap:            0;
+}
+
+/* Eyebrow */
+.cube__eyebrow {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            8px;
+  padding:        5px 14px;
+  border-radius:  999px;
+  background:     rgba(139,92,246,.1);
+  border:         1px solid rgba(139,92,246,.22);
+  font-family:    var(--font-body);
+  font-size:      11px;
+  font-weight:    600;
+  color:          #A78BFA;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom:  24px;
+  width:          fit-content;
+}
+
+.cube__eyebrow-dot {
+  display:       block;
+  width:         6px;
+  height:        6px;
+  border-radius: 50%;
+  background:    #A78BFA;
+  flex-shrink:   0;
+}
+
+/* Logo + URL row */
+.cube__brand {
+  display:     flex;
+  align-items: center;
+  gap:         16px;
+  margin-bottom: 20px;
+}
+
+.cube__logo-wrap {
+  padding:       10px 16px;
+  border-radius: 12px;
+  background:    #ffffff;          /* white bg so logo shows on dark theme */
+  border:        1px solid rgba(255,255,255,.12);
+  display:       flex;
+  align-items:   center;
+}
+
+.cube__logo {
+  height:    36px;
+  width:     auto;
+  display:   block;
+  object-fit:contain;
+}
+
+.cube__brand-url {
+  font-family:    var(--font-body);
+  font-size:      13px;
+  font-weight:    600;
+  color:          #A78BFA;
+  letter-spacing: 0.04em;
+}
+
+/* Heading */
+.cube__heading {
+  font-family:    var(--font-display);
+  font-size:      clamp(30px, 3.5vw, 52px);
+  font-weight:    800;
+  line-height:    1.1;
+  letter-spacing: -0.03em;
+  color:          var(--text-1);
+  margin-bottom:  18px;
+}
+
+.cube__heading-accent {
+  background:              linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip:         text;
+}
+
+/* Sub paragraph */
+.cube__sub {
+  font-family:   var(--font-body);
+  font-size:     clamp(14px, 1.2vw, 16px);
+  font-weight:   400;
+  color:         var(--text-3);
+  line-height:   1.75;
+  margin-bottom: 28px;
+}
+
+/* Feature list */
+.cube__features {
+  list-style:    none;
+  display:       flex;
+  flex-direction:column;
+  gap:           12px;
+  margin-bottom: 36px;
+}
+
+.cube__feature {
+  display:     flex;
+  align-items: center;
+  gap:         12px;
+}
+
+.cube__feature-icon {
+  width:          34px;
+  height:         34px;
+  border-radius:  9px;
+  background:     rgba(139,92,246,.1);
+  border:         1px solid rgba(139,92,246,.18);
+  display:        flex;
+  align-items:    center;
+  justify-content:center;
+  color:          #A78BFA;
+  flex-shrink:    0;
+}
+
+.cube__feature-label {
+  font-family: var(--font-body);
+  font-size:   14px;
+  font-weight: 500;
+  color:       var(--text-2);
+}
+
+/* CTAs */
+.cube__ctas {
+  display:     flex;
+  align-items: center;
+  gap:         12px;
+  flex-wrap:   wrap;
+}
+
+.cube__cta-primary {
+  display:       flex;
+  align-items:   center;
+  gap:           8px;
+  padding:       13px 26px;
+  border-radius: 12px;
+  font-family:   var(--font-body);
+  font-size:     14px;
+  font-weight:   700;
+  background:    linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  color:         #fff;
+  box-shadow:    0 4px 20px rgba(124,58,237,.3);
+  transition:    box-shadow .2s;
+  white-space:   nowrap;
+}
+
+.cube__cta-ghost {
+  font-family:  var(--font-body);
+  font-size:    14px;
+  font-weight:  600;
+  color:        #A78BFA;
+  padding:      13px 8px;
+  transition:   color .2s;
+}
+
+.cube__cta-ghost:hover { color: #fff; }
+
+/* ── Right column — mockup ────────────────────────────────────────────────── */
+.cube__right {
+  position:        relative;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+/* Purple glow orb behind the mockup */
+.cube__mockup-glow {
+  position:      absolute;
+  top:           50%;
+  left:          50%;
+  transform:     translate(-50%, -50%);
+  width:         80%;
+  height:        80%;
+  border-radius: 50%;
+  background:    radial-gradient(circle, rgba(124,58,237,.18) 0%, transparent 70%);
+  pointer-events:none;
+  filter:        blur(32px);
+}
+
+.cube__mockup-wrap {
+  position: relative;
+  z-index:  1;
+  width:    100%;
+}
+
+.cube__mockup-img {
+  width:      100%;
+  height:     auto;
+  object-fit: contain;
+  /* Drop shadow matching the purple glow */
+  filter:     drop-shadow(0 32px 64px rgba(124,58,237,.25));
+}
+
+/* ── Floating stat chips ──────────────────────────────────────────────────── */
+/*
+  HOW CHIPS WORK:
+  Absolutely positioned over the mockup image.
+  --tl = top-left corner,  --br = bottom-right corner
+  They animate in with spring after the section is in view.
+*/
+.cube__chip {
+  position:       absolute;
+  z-index:        2;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  padding:        10px 16px;
+  border-radius:  14px;
+  background:     rgba(12,12,12,.88);
+  border:         1px solid rgba(139,92,246,.25);
+  backdrop-filter:blur(12px);
+  box-shadow:     0 8px 32px rgba(0,0,0,.4);
+  gap:            2px;
+}
+
+.cube__chip--tl {
+  top:   12%;
+  left:  -8%;
+}
+
+.cube__chip--br {
+  bottom: 12%;
+  right:  -6%;
+}
+
+.cube__chip-val {
+  font-family:    var(--font-display);
+  font-size:      18px;
+  font-weight:    800;
+  color:          #A78BFA;
+  letter-spacing: -0.02em;
+  line-height:    1;
+}
+
+.cube__chip-lbl {
+  font-family:  var(--font-body);
+  font-size:    10px;
+  font-weight:  500;
+  color:        var(--text-3);
+  white-space:  nowrap;
+  letter-spacing: 0.04em;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .cube__grid { gap: 48px; }
+  .cube__chip--tl { left: -4%; }
+  .cube__chip--br { right: -4%; }
+}
+
+/* Mobile — single column, mockup below copy */
+@media (max-width: 768px) {
+  .cube__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* On mobile the chips would clip — pull them inside */
+  .cube__chip--tl { left: 4%;  top: 8%;    }
+  .cube__chip--br { right: 4%; bottom: 8%; }
+}
+
+@media (max-width: 480px) {
+  .cube__ctas    { flex-direction: column; align-items: stretch; }
+  .cube__cta-primary { justify-content: center; }
+  .cube__chip    { display: none; }   /* too cramped on very small screens */
+}

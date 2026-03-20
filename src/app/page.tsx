@@ -5,6 +5,7 @@ import Brands        from "@/sections/Brands";
 import Services      from "@/sections/Services";
 import CTABanner     from "@/sections/CTABanner";
 import Credibility   from "@/sections/Credibility";
+import CubeStore     from "@/sections/CubeStore";
 import Testimonials  from "@/sections/Testimonials";
 import QuoteSection  from "@/sections/QuoteSection";
 import Footer        from "@/components/Footer";
@@ -20,6 +21,7 @@ export default function Home() {
         <Clients />
         <Brands />
         <Services />
+        <CubeStore />
         <CTABanner />
         <Credibility />
         <Testimonials />
