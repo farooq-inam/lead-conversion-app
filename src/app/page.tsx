@@ -20,8 +20,8 @@ export default function Home() {
         <Hero />
         <Clients />
         <Brands />
-        <Services />
         <CubeStore />
+        <Services />
         <CTABanner />
         <Credibility />
         <Testimonials />
