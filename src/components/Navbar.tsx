@@ -15,13 +15,13 @@ const NAV_LINKS: NavLink[] = [
   {
     label: "Products", href: "#products",
     children: [
-      { label: "iPhone 16 Series",       href: "#iphone",       badge: "New" },
-      { label: "MacBook Pro & Air",       href: "#macbook"                    },
-      { label: "iPad & Accessories",      href: "#ipad"                       },
-      { label: "Apple Watch Series 10",   href: "#watch"                      },
-      { label: "AirPods Pro",             href: "#airpods"                    },
-      { label: "Nothing Phone 3a",        href: "#nothing-phone", badge: "Hot"},
-      { label: "Nothing Ear & CMF",       href: "#nothing-ear"                },
+      { label: "iPhone 16 Series",       href: "#iphone",        badge: "New" },
+      { label: "MacBook Pro & Air",       href: "#macbook"                     },
+      { label: "iPad & Accessories",      href: "#ipad"                        },
+      { label: "Apple Watch Series 10",   href: "#watch"                       },
+      { label: "AirPods Pro",             href: "#airpods"                     },
+      { label: "Nothing Phone 3a",        href: "#nothing-phone", badge: "Hot" },
+      { label: "Nothing Ear & CMF",       href: "#nothing-ear"                 },
     ],
   },
   {
@@ -37,12 +37,53 @@ const NAV_LINKS: NavLink[] = [
   { label: "Contact",  href: "#contact" },
 ];
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   COLOUR TOKENS (navbar-only)
+   ─────────────────────────────────────────────────────────────────────────────
+   transparent state  = on top of hero (dark background visible behind)
+   scrolled state     = dark frosted glass — never goes light/white
+   ───────────────────────────────────────────────────────────────────────── */
+const T = {
+  // Nav background
+  navBg:          "transparent",
+  navBgScrolled:  "rgba(10, 10, 10, 0.88)",   // dark, not white
+
+  // Nav border
+  navBorder:        "rgba(255,255,255,0)",
+  navBorderScrolled:"rgba(255,255,255,0.07)",
+
+  // Nav shadow
+  navShadow:        "none",
+  navShadowScrolled:"0 8px 32px rgba(0,0,0,0.5)",
+
+  // Logo wordmark
+  logoText:         "#F5F5F7",   // always white — readable on both states
+  logoSub:          "#C8A96E",   // always gold
+
+  // Nav link text
+  linkIdle:         "#6E6E73",   // muted on transparent
+  linkIdleScrolled: "#A1A1A6",   // slightly brighter on dark frosted
+  linkHover:        "#F5F5F7",   // always white on hover
+
+  // Phone number
+  phone:            "#6E6E73",
+  phoneScrolled:    "#A1A1A6",
+
+  // Hamburger bars
+  hamburger:        "#F5F5F7",   // always white — visible on both states
+  hamburgerBg:      "rgba(255,255,255,0.07)",
+
+  // Quote button — stays gold always, doesn't flip dark
+  quoteBg:          "linear-gradient(135deg,#C8A96E 0%,#7A5C0A 100%)",
+  quoteColor:       "#050505",
+  quoteShadow:      "0 4px 14px rgba(200,169,110,0.25)",
+} as const;
+
 /* ── Logo ─────────────────────────────────────────────────────────────────── */
-function Logo({ scrolled }: { scrolled: boolean }) {
+function Logo() {
   return (
     <a href="/" aria-label="Horizon Tech Home"
       style={{ display:"flex", alignItems:"center", gap:12, textDecoration:"none" }}>
-      {/* mark */}
       <div style={{ position:"relative", width:36, height:36 }}>
         <div style={{
           position:"absolute", inset:0, borderRadius:10,
@@ -54,24 +95,20 @@ function Logo({ scrolled }: { scrolled: boolean }) {
           display:"flex", alignItems:"center", justifyContent:"center"
         }}>
           <span style={{
-            fontFamily:"var(--font-display)", fontWeight:800, fontSize:13,
-            color:"#C8A96E", lineHeight:1
+            fontFamily:"var(--font-display)", fontWeight:800,
+            fontSize:13, color:"#C8A96E", lineHeight:1
           }}>H</span>
         </div>
       </div>
-      {/* wordmark */}
       <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
         <span style={{
-          fontFamily:"var(--font-display)", fontWeight:800, fontSize:13,
-          letterSpacing:"0.07em",
-          color: scrolled ? "#0A0A0A" : "#F5F5F7",
-          transition:"color .3s"
+          fontFamily:"var(--font-display)", fontWeight:800,
+          fontSize:13, letterSpacing:"0.07em", color: T.logoText,
         }}>HORIZON TECH</span>
         <span style={{
-          fontFamily:"var(--font-body)", fontWeight:500, fontSize:9,
-          letterSpacing:"0.22em", textTransform:"uppercase",
-          color: scrolled ? "#8A8A8A" : "#C8A96E",
-          transition:"color .3s"
+          fontFamily:"var(--font-body)", fontWeight:500,
+          fontSize:9, letterSpacing:"0.22em", textTransform:"uppercase",
+          color: T.logoSub,
         }}>Official Distributor · Lahore</span>
       </div>
     </a>
@@ -82,37 +119,42 @@ function Logo({ scrolled }: { scrolled: boolean }) {
 function Dropdown({ items }: { items: NavChild[] }) {
   return (
     <motion.div
-      initial={{ opacity:0, y:8, scale:.97 }}
+      initial={{ opacity:0, y:8,  scale:.97 }}
       animate={{ opacity:1, y:0,  scale:1   }}
       exit={{   opacity:0, y:4,  scale:.97  }}
       transition={{ duration:.16, ease:"easeOut" }}
       style={{
-        position:"absolute", top:"100%", left:"50%", transform:"translateX(-50%)",
-        marginTop:12, width:232, borderRadius:16, overflow:"hidden", zIndex:50,
-        background:"#111111",
-        border:"1px solid rgba(255,255,255,0.1)",
-        boxShadow:"0 24px 64px rgba(0,0,0,.7)",
+        position:"absolute", top:"100%", left:"50%",
+        transform:"translateX(-50%)",
+        marginTop:10, width:236,
+        borderRadius:16, overflow:"hidden", zIndex:50,
+        background:"#0F0F0F",
+        border:"1px solid rgba(255,255,255,0.09)",
+        boxShadow:"0 24px 64px rgba(0,0,0,0.75)",
+        backdropFilter:"blur(20px)",
       }}
     >
-      <div style={{ padding:8 }}>
+      <div style={{ padding:6 }}>
         {items.map((item, i) => (
-          <motion.a key={item.label} href={item.href}
-            initial={{ opacity:0, x:-4 }} animate={{ opacity:1, x:0 }}
-            transition={{ delay: i*.03 }}
+          <motion.a
+            key={item.label} href={item.href}
+            initial={{ opacity:0, x:-4 }}
+            animate={{ opacity:1, x:0  }}
+            transition={{ delay: i * .03 }}
             style={{
               display:"flex", alignItems:"center", justifyContent:"space-between",
               padding:"10px 12px", borderRadius:10,
               fontFamily:"var(--font-body)", fontSize:13, fontWeight:500,
-              color:"#A1A1A6", textDecoration:"none",
+              color:"#6E6E73", textDecoration:"none",
               transition:"background .15s, color .15s",
             }}
-            onMouseEnter={e=>{
-              (e.currentTarget as HTMLElement).style.background="rgba(200,169,110,.1)";
-              (e.currentTarget as HTMLElement).style.color="#F5F5F7";
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.background = "rgba(200,169,110,.08)";
+              (e.currentTarget as HTMLElement).style.color = "#F5F5F7";
             }}
-            onMouseLeave={e=>{
-              (e.currentTarget as HTMLElement).style.background="transparent";
-              (e.currentTarget as HTMLElement).style.color="#A1A1A6";
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "#6E6E73";
             }}
           >
             <span>{item.label}</span>
@@ -120,7 +162,7 @@ function Dropdown({ items }: { items: NavChild[] }) {
               <span style={{
                 fontSize:9, fontWeight:900, letterSpacing:"0.1em",
                 padding:"2px 7px", borderRadius:999,
-                background:"#C8A96E", color:"#050505"
+                background:"#C8A96E", color:"#050505",
               }}>{item.badge}</span>
             )}
           </motion.a>
@@ -143,29 +185,34 @@ function DesktopNavItem({ link, scrolled }: { link: NavLink; scrolled: boolean }
     return () => document.removeEventListener("mousedown", h);
   }, []);
 
+  const idleColor  = scrolled ? T.linkIdleScrolled : T.linkIdle;
+  const activeColor = T.linkHover;
+
   return (
     <div ref={ref} style={{ position:"relative" }}
       onMouseEnter={() => link.children && setOpen(true)}
       onMouseLeave={() => link.children && setOpen(false)}
     >
-      <a href={link.href}
+      <a
+        href={link.href}
         onClick={e => link.children && e.preventDefault()}
         style={{
           display:"flex", alignItems:"center", gap:4,
           padding:"8px 4px",
           fontFamily:"var(--font-body)", fontSize:13, fontWeight:600,
-          color: open
-            ? (scrolled ? "#0A0A0A" : "#FFFFFF")
-            : (scrolled ? "#3A3A3A" : "#A1A1A6"),
+          color: open ? activeColor : idleColor,
           textDecoration:"none", transition:"color .2s",
         }}
       >
         {link.label}
         {link.children && (
-          <motion.svg animate={{ rotate: open ? 180 : 0 }} transition={{ duration:.2 }}
-            width="11" height="11" viewBox="0 0 12 12" fill="none">
-            <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.6"
-              strokeLinecap="round" strokeLinejoin="round"/>
+          <motion.svg
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration:.2 }}
+            width="11" height="11" viewBox="0 0 12 12" fill="none"
+          >
+            <path d="M2 4L6 8L10 4" stroke="currentColor"
+              strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
           </motion.svg>
         )}
       </a>
@@ -179,25 +226,24 @@ function DesktopNavItem({ link, scrolled }: { link: NavLink; scrolled: boolean }
 /* ── Mobile Drawer ────────────────────────────────────────────────────────── */
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [expanded, setExpanded] = useState<string | null>(null);
-
   useEffect(() => { if (!open) setExpanded(null); }, [open]);
 
   return (
     <AnimatePresence>
       {open && (
         <>
-          {/* backdrop */}
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
             transition={{ duration:.25 }}
             onClick={onClose}
             style={{
               position:"fixed", inset:0, zIndex:40,
-              background:"rgba(0,0,0,.78)", backdropFilter:"blur(5px)"
+              background:"rgba(0,0,0,0.75)", backdropFilter:"blur(5px)",
             }}
           />
 
-          {/* drawer panel */}
+          {/* Drawer — always dark, never affected by scroll state */}
           <motion.aside
             initial={{ x:"100%" }} animate={{ x:0 }} exit={{ x:"100%" }}
             transition={{ type:"spring", damping:28, stiffness:260 }}
@@ -209,31 +255,33 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               borderLeft:"1px solid rgba(255,255,255,0.08)",
             }}
           >
-            {/* header */}
+            {/* Header */}
             <div style={{
               display:"flex", alignItems:"center", justifyContent:"space-between",
               padding:"16px 20px",
-              borderBottom:"1px solid rgba(255,255,255,0.08)"
+              borderBottom:"1px solid rgba(255,255,255,0.08)",
             }}>
               <div>
                 <p style={{
                   fontFamily:"var(--font-display)", fontWeight:800,
-                  fontSize:14, letterSpacing:"0.07em", color:"#F5F5F7"
+                  fontSize:14, letterSpacing:"0.07em", color:"#F5F5F7",
                 }}>HORIZON TECH</p>
                 <p style={{
                   fontFamily:"var(--font-body)", fontSize:10,
                   letterSpacing:"0.2em", color:"#C8A96E",
-                  textTransform:"uppercase", marginTop:3
+                  textTransform:"uppercase", marginTop:3,
                 }}>Official Distributor · Lahore</p>
               </div>
-              <button onClick={onClose} aria-label="Close menu"
+              <button
+                onClick={onClose} aria-label="Close menu"
                 style={{
                   width:36, height:36, borderRadius:10,
                   background:"rgba(255,255,255,0.07)",
                   border:"none", cursor:"pointer",
                   display:"flex", alignItems:"center", justifyContent:"center",
-                  color:"#F5F5F7"
-                }}>
+                  color:"#F5F5F7",
+                }}
+              >
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none"
                   stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                   <path d="M1 1L13 13M13 1L1 13"/>
@@ -241,42 +289,44 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               </button>
             </div>
 
-            {/* links */}
+            {/* Links */}
             <nav style={{ flex:1, overflowY:"auto", padding:"12px" }}>
               {NAV_LINKS.map((link, i) => (
-                <motion.div key={link.label}
-                  initial={{ opacity:0, x:16 }} animate={{ opacity:1, x:0 }}
-                  transition={{ delay: i*.07+.05 }}
+                <motion.div
+                  key={link.label}
+                  initial={{ opacity:0, x:16 }}
+                  animate={{ opacity:1, x:0  }}
+                  transition={{ delay: i * .07 + .05 }}
                 >
                   {link.children ? (
                     <div style={{ marginBottom:4 }}>
                       <button
-                        onClick={() => setExpanded(expanded===link.label ? null : link.label)}
+                        onClick={() => setExpanded(expanded === link.label ? null : link.label)}
                         style={{
                           width:"100%", display:"flex", alignItems:"center",
                           justifyContent:"space-between",
                           padding:"12px 16px", borderRadius:12,
-                          background: expanded===link.label ? "rgba(200,169,110,.1)" : "transparent",
+                          background: expanded === link.label
+                            ? "rgba(200,169,110,.1)" : "transparent",
                           border:"none", cursor:"pointer",
                           fontFamily:"var(--font-body)", fontSize:14, fontWeight:600,
-                          color:"#F5F5F7",  /* ← always white */
-                          textAlign:"left",
+                          color:"#F5F5F7", textAlign:"left",
                         }}
                       >
                         <span>{link.label}</span>
                         <motion.svg
-                          animate={{ rotate: expanded===link.label ? 180 : 0 }}
+                          animate={{ rotate: expanded === link.label ? 180 : 0 }}
                           transition={{ duration:.2 }}
                           width="13" height="13" viewBox="0 0 14 14" fill="none"
-                          stroke="#C8A96E" strokeWidth="1.6" strokeLinecap="round"
-                          strokeLinejoin="round"
+                          stroke="#C8A96E" strokeWidth="1.6"
+                          strokeLinecap="round" strokeLinejoin="round"
                         >
                           <path d="M2 5L7 10L12 5"/>
                         </motion.svg>
                       </button>
 
                       <AnimatePresence>
-                        {expanded===link.label && (
+                        {expanded === link.label && (
                           <motion.div
                             initial={{ height:0, opacity:0 }}
                             animate={{ height:"auto", opacity:1 }}
@@ -286,23 +336,23 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                           >
                             <div style={{ paddingLeft:12, paddingBottom:4, paddingTop:4 }}>
                               {link.children.map(child => (
-                                <a key={child.label} href={child.href} onClick={onClose}
+                                <a
+                                  key={child.label} href={child.href} onClick={onClose}
                                   style={{
                                     display:"flex", alignItems:"center",
                                     justifyContent:"space-between",
-                                    padding:"10px 16px", borderRadius:10,
+                                    padding:"10px 16px", borderRadius:10, marginBottom:2,
                                     fontFamily:"var(--font-body)", fontSize:13,
-                                    fontWeight:400, color:"#A1A1A6",  /* ← light grey */
-                                    textDecoration:"none", marginBottom:2,
+                                    fontWeight:400, color:"#A1A1A6", textDecoration:"none",
                                     transition:"color .15s, background .15s",
                                   }}
-                                  onMouseEnter={e=>{
-                                    (e.currentTarget as HTMLElement).style.color="#F5F5F7";
-                                    (e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.05)";
+                                  onMouseEnter={e => {
+                                    (e.currentTarget as HTMLElement).style.color = "#F5F5F7";
+                                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.05)";
                                   }}
-                                  onMouseLeave={e=>{
-                                    (e.currentTarget as HTMLElement).style.color="#A1A1A6";
-                                    (e.currentTarget as HTMLElement).style.background="transparent";
+                                  onMouseLeave={e => {
+                                    (e.currentTarget as HTMLElement).style.color = "#A1A1A6";
+                                    (e.currentTarget as HTMLElement).style.background = "transparent";
                                   }}
                                 >
                                   <span>{child.label}</span>
@@ -310,7 +360,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                                     <span style={{
                                       fontSize:9, fontWeight:900, letterSpacing:"0.1em",
                                       padding:"2px 7px", borderRadius:999,
-                                      background:"#C8A96E", color:"#050505"
+                                      background:"#C8A96E", color:"#050505",
                                     }}>{child.badge}</span>
                                   )}
                                 </a>
@@ -321,30 +371,32 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                       </AnimatePresence>
                     </div>
                   ) : (
-                    <a href={link.href} onClick={onClose}
+                    <a
+                      href={link.href} onClick={onClose}
                       style={{
                         display:"flex", alignItems:"center",
                         padding:"12px 16px", borderRadius:12, marginBottom:4,
                         fontFamily:"var(--font-body)", fontSize:14, fontWeight:600,
-                        color:"#F5F5F7",  /* ← always white */
-                        textDecoration:"none",
+                        color:"#F5F5F7", textDecoration:"none",
                         transition:"background .15s",
                       }}
-                      onMouseEnter={e=>{ (e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.05)"; }}
-                      onMouseLeave={e=>{ (e.currentTarget as HTMLElement).style.background="transparent"; }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.05)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                     >{link.label}</a>
                   )}
                 </motion.div>
               ))}
             </nav>
 
-            {/* footer CTAs */}
+            {/* Footer CTAs */}
             <div style={{
               padding:16,
               borderTop:"1px solid rgba(255,255,255,0.08)",
-              display:"flex", flexDirection:"column", gap:10
+              display:"flex", flexDirection:"column", gap:10,
             }}>
-              <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer"
+              <a
+                href="https://wa.me/923001234567"
+                target="_blank" rel="noopener noreferrer"
                 onClick={onClose}
                 style={{
                   display:"flex", alignItems:"center", justifyContent:"center", gap:8,
@@ -358,15 +410,15 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                 </svg>
                 WhatsApp Us Now
               </a>
-              <a href="#quote" onClick={onClose}
+              <a
+                href="#quote" onClick={onClose}
                 style={{
                   display:"flex", alignItems:"center", justifyContent:"center",
                   padding:"12px 0", borderRadius:12,
                   fontFamily:"var(--font-body)", fontSize:13, fontWeight:700,
-                  color:"#F5F5F7",  /* ← white text */
+                  color:"#F5F5F7",
                   border:"1px solid rgba(255,255,255,0.14)",
-                  background:"rgba(255,255,255,0.04)",
-                  textDecoration:"none",
+                  background:"rgba(255,255,255,0.04)", textDecoration:"none",
                 }}
               >Get a Free Quote</a>
             </div>
@@ -379,7 +431,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 /* ── Main Navbar ──────────────────────────────────────────────────────────── */
 export default function Navbar() {
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled,   setScrolled]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { scrollY } = useScroll();
 
@@ -392,7 +444,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Announcement bar */}
+      {/* ── Announcement bar ──────────────────────────────────────────── */}
       <motion.div
         animate={{ height: scrolled ? 0 : "auto", opacity: scrolled ? 0 : 1 }}
         transition={{ duration:.3 }}
@@ -400,23 +452,23 @@ export default function Navbar() {
           position:"fixed", top:0, left:0, right:0, zIndex:30,
           overflow:"hidden",
           background:"#0C0C0C",
-          borderBottom:"1px solid rgba(255,255,255,0.06)"
+          borderBottom:"1px solid rgba(255,255,255,0.05)",
         }}
       >
         <p style={{
           fontFamily:"var(--font-body)", fontSize:11, fontWeight:500,
           color:"#6E6E73", letterSpacing:"0.04em",
-          padding:"8px 16px", textAlign:"center"
+          padding:"8px 16px", textAlign:"center",
         }}>
-          🍎 Official Apple Authorised Reseller &nbsp;·&nbsp; ◎ Nothing Certified Distributor
-          &nbsp;·&nbsp;{" "}
+          🍎 Official Apple Authorised Reseller &nbsp;·&nbsp;
+          ◎ Nothing Certified Distributor &nbsp;·&nbsp;
           <span style={{ color:"#C8A96E", fontWeight:600 }}>
             Free Delivery across Lahore
           </span>
         </p>
       </motion.div>
 
-      {/* Nav bar */}
+      {/* ── Nav bar ───────────────────────────────────────────────────── */}
       <motion.header
         initial={{ y:-80, opacity:0 }}
         animate={{ y:0, opacity:1, top: scrolled ? 0 : 32 }}
@@ -425,93 +477,84 @@ export default function Navbar() {
       >
         <motion.nav
           animate={{
-            background:    scrolled ? "rgba(248,247,245,0.96)" : "transparent",
-            backdropFilter:scrolled ? "blur(24px) saturate(180%)" : "blur(0px)",
-            boxShadow:     scrolled ? "0 4px 32px rgba(0,0,0,0.1)" : "none",
+            background:     scrolled ? T.navBgScrolled  : T.navBg,
+            backdropFilter: scrolled ? "blur(24px) saturate(160%)" : "blur(0px)",
+            boxShadow:      scrolled ? T.navShadowScrolled : T.navShadow,
+            borderBottomColor: scrolled
+              ? T.navBorderScrolled
+              : T.navBorder,
           }}
           transition={{ duration:.35 }}
-          style={{ borderBottom:"1px solid transparent",
-            ...(scrolled && { borderBottomColor:"rgba(0,0,0,0.07)" }) }}
+          style={{ borderBottom:"1px solid transparent" }}
         >
           <div style={{
             maxWidth:1280, margin:"0 auto", padding:"0 24px",
             display:"flex", alignItems:"center", justifyContent:"space-between",
-            height:64
+            height:64,
           }}>
-            {/* Logo */}
-            <Logo scrolled={scrolled}/>
 
-            {/* Brand pills */}
-            <div style={{ display:"none" }} className="brand-pills">
-              {[{ name:"Apple", icon:"🍎" }, { name:"Nothing", icon:"◎" }].map(b=>(
-                <span key={b.name} style={{
-                  display:"flex", alignItems:"center", gap:6,
-                  padding:"4px 12px", borderRadius:999,
-                  fontFamily:"var(--font-body)", fontSize:11, fontWeight:600,
-                  border:`1px solid ${scrolled?"rgba(0,0,0,.1)":"rgba(255,255,255,.08)"}`,
-                  color: scrolled ? "#5A5A5A" : "#A1A1A6",
-                  background: scrolled ? "rgba(0,0,0,.04)" : "rgba(255,255,255,.04)",
-                }}>
-                  {b.icon} {b.name}
-                </span>
-              ))}
-            </div>
+            {/* Logo — colours never change, always readable on dark */}
+            <Logo />
 
-            {/* Desktop links */}
-            <nav style={{ display:"flex", alignItems:"center", gap:20 }}
-              className="desktop-nav">
+            {/* Desktop nav links */}
+            <nav
+              className="nav-desktop"
+              style={{ display:"flex", alignItems:"center", gap:20 }}
+            >
               {NAV_LINKS.map(link => (
-                <DesktopNavItem key={link.label} link={link} scrolled={scrolled}/>
+                <DesktopNavItem key={link.label} link={link} scrolled={scrolled} />
               ))}
             </nav>
 
             {/* Right group */}
             <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-              {/* Phone */}
-              <a href="tel:+923001234567" style={{
-                display:"flex", alignItems:"center", gap:6,
-                fontFamily:"var(--font-body)", fontSize:12, fontWeight:600,
-                color: scrolled ? "#5A5A5A" : "#6E6E73",
-                textDecoration:"none", transition:"color .3s"
-              }} className="phone-link">
+
+              {/* Phone number */}
+              <a
+                href="tel:+923001234567"
+                className="nav-phone"
+                style={{
+                  display:"flex", alignItems:"center", gap:6,
+                  fontFamily:"var(--font-body)", fontSize:12, fontWeight:600,
+                  color: scrolled ? T.phoneScrolled : T.phone,
+                  textDecoration:"none", transition:"color .3s",
+                }}
+              >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                  strokeLinejoin="round">
+                  stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
                 </svg>
                 0300 123 4567
               </a>
 
-              {/* Quote CTA */}
-              <motion.a href="#quote"
+              {/* Get Free Quote — gold always, never flips */}
+              <motion.a
+                href="#quote"
+                className="nav-quote"
                 whileHover={{ scale:1.03 }} whileTap={{ scale:.97 }}
                 style={{
                   display:"flex", alignItems:"center", gap:8,
                   padding:"10px 18px", borderRadius:12,
                   fontFamily:"var(--font-body)", fontSize:13, fontWeight:700,
-                  background: scrolled
-                    ? "linear-gradient(135deg,#0A0A0A,#2A2A2A)"
-                    : "linear-gradient(135deg,#C8A96E,#7A5C0A)",
-                  color:"#F5F5F7",
+                  background: T.quoteBg,
+                  color:      T.quoteColor,
                   textDecoration:"none",
-                  boxShadow: scrolled
-                    ? "0 4px 14px rgba(0,0,0,.3)"
-                    : "0 4px 14px rgba(200,169,110,.25)",
-                  transition:"box-shadow .3s",
+                  boxShadow:  T.quoteShadow,
                 }}
-                className="quote-btn"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"
-                  strokeLinejoin="round">
+                  stroke="currentColor" strokeWidth="2.2"
+                  strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
                 </svg>
                 Get Free Quote
               </motion.a>
 
               {/* WhatsApp */}
-              <motion.a href="https://wa.me/923001234567" target="_blank"
-                rel="noopener noreferrer"
+              <motion.a
+                href="https://wa.me/923001234567"
+                target="_blank" rel="noopener noreferrer"
                 whileHover={{ scale:1.06 }} whileTap={{ scale:.94 }}
                 style={{
                   width:40, height:40, borderRadius:12,
@@ -527,22 +570,23 @@ export default function Navbar() {
               </motion.a>
 
               {/* Hamburger */}
-              <button onClick={() => setMobileOpen(true)} aria-label="Open menu"
-                className="hamburger-btn"
+              <button
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open menu"
+                className="nav-hamburger"
                 style={{
                   width:40, height:40, borderRadius:12,
                   display:"flex", flexDirection:"column",
                   alignItems:"center", justifyContent:"center", gap:5,
-                  background: scrolled ? "rgba(0,0,0,.06)" : "rgba(255,255,255,.07)",
+                  background: T.hamburgerBg,
                   border:"none", cursor:"pointer",
                 }}
               >
-                {[0,1,2].map(i=>(
+                {[0,1,2].map(i => (
                   <span key={i} style={{
                     display:"block", borderRadius:999, height:1.5,
-                    width: i===1 ? 14 : 18,
-                    background: scrolled ? "#3A3A3A" : "#F5F5F7",
-                    transition:"background .3s",
+                    width: i === 1 ? 14 : 18,
+                    background: T.hamburger,
                   }}/>
                 ))}
               </button>
@@ -551,27 +595,23 @@ export default function Navbar() {
         </motion.nav>
       </motion.header>
 
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)}/>
+      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
 
-      {/* Responsive helpers */}
+      {/* Responsive show/hide helpers */}
       <style>{`
-        @media (max-width:1023px) {
-          .desktop-nav { display:none !important; }
-          .brand-pills  { display:none !important; }
-          .phone-link   { display:none !important; }
-          .quote-btn    { display:none !important; }
+        @media (max-width: 1023px) {
+          .nav-desktop { display: none !important; }
+          .nav-phone   { display: none !important; }
+          .nav-quote   { display: none !important; }
         }
-        @media (min-width:1024px) {
-          .hamburger-btn { display:none !important; }
+        @media (min-width: 1024px) {
+          .nav-hamburger { display: none !important; }
         }
-        @media (min-width:1024px) {
-          .brand-pills { display:flex !important; gap:8px; }
+        @media (min-width: 1280px) {
+          .nav-phone { display: flex !important; }
         }
-        @media (min-width:1280px) {
-          .phone-link { display:flex !important; }
-        }
-        @media (min-width:640px) {
-          .quote-btn { display:flex !important; }
+        @media (min-width: 640px) {
+          .nav-quote { display: flex !important; }
         }
       `}</style>
     </>
