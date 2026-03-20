@@ -1,54 +1,106 @@
-/* ─────────────────────────────────────────────────────────────────────────────
-   HORIZON TECH — Global Stylesheet
-   Approach: CSS classes defined here, JSX just uses className="..."
-   Page-width is controlled by .page-width — one place to change it all
-   ───────────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   HORIZON TECH — globals.css
+   ───────────────────────────────────────────────────────────────────────────
+
+   PHILOSOPHY
+   ──────────
+   All visual styles live HERE. JSX files only use className="...".
+   This keeps component files readable — just structure, no clutter.
+
+   PAGE-WIDTH SYSTEM
+   ─────────────────
+   Every section's content is wrapped in <div className="page-width">.
+   That class reads --page-width and --page-px from :root below.
+   To change the site's max content width: edit --page-width once here.
+   To change horizontal padding at any breakpoint: edit --page-px-* here.
+   Nothing else needs touching.
+
+   NAMING CONVENTION
+   ─────────────────
+   We use BEM-style: block__element--modifier
+   .hero           = the section block
+   .hero__left     = an element inside hero
+   .hero__h1--gold = a modifier (variant) of hero__h1
+   .btn--gold      = a modifier of the shared btn component
+   This makes it obvious which CSS belongs to which part of the UI.
+
+   HOW TO ADD A NEW CLASS
+   ──────────────────────
+   1. Find the relevant section block below (e.g. "HERO SECTION")
+   2. Add your class inside that block
+   3. Use it in JSX with className="your-class"
+   4. Add a responsive override in the breakpoints section at the bottom
+      if the element needs to change on mobile
+
+   HOW clamp() WORKS FOR FONT SIZES
+   ──────────────────────────────────
+   font-size: clamp(MIN, FLUID, MAX)
+   - MIN  = smallest it will ever be (e.g. 36px on a phone)
+   - FLUID = scales with viewport width (e.g. 5vw)
+   - MAX  = largest it will ever be (e.g. 64px on a big screen)
+   No media queries needed for typography — one line does all screen sizes.
+
+══════════════════════════════════════════════════════════════════════════ */
 
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
-/* ── Design tokens ────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   Change a value here → it updates everywhere that token is used.
+   ───────────────────────────────────────────────────────────────────── */
 :root {
   /* Colours */
-  --bg:           #050505;
-  --bg-2:         #0C0C0C;
-  --bg-3:         #111111;
-  --surface:      #181818;
-  --border:       rgba(255,255,255,0.08);
-  --border-2:     rgba(255,255,255,0.14);
-  --text-1:       #F5F5F7;
-  --text-2:       #A1A1A6;
-  --text-3:       #6E6E73;
-  --text-4:       #3A3A3A;
-  --accent:       #C8A96E;
-  --accent-light: #F0D898;
-  --accent-dim:   rgba(200,169,110,0.10);
-  --accent-border:rgba(200,169,110,0.20);
-  --wa:           #25D166;
-  --wa-dim:       rgba(37,209,102,0.10);
-  --wa-border:    rgba(37,209,102,0.22);
+  --bg:            #050505;
+  --bg-2:          #0C0C0C;
+  --bg-3:          #111111;
+  --border:        rgba(255,255,255,0.08);
+  --border-2:      rgba(255,255,255,0.14);
+  --text-1:        #F5F5F7;   /* headings, primary text   */
+  --text-2:        #A1A1A6;   /* secondary text           */
+  --text-3:        #6E6E73;   /* muted / supporting text  */
+  --text-4:        #3A3A3A;   /* very dim (scroll label)  */
+  --accent:        #C8A96E;   /* gold                     */
+  --accent-light:  #F0D898;   /* lighter gold for gradient*/
+  --accent-dim:    rgba(200,169,110,0.10);
+  --accent-border: rgba(200,169,110,0.20);
+  --wa:            #25D166;   /* WhatsApp green           */
+  --wa-dim:        rgba(37,209,102,0.10);
+  --wa-border:     rgba(37,209,102,0.22);
 
   /* Typography */
-  --font-display: 'Syne',    sans-serif;
-  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'Syne',    sans-serif;  /* headings  */
+  --font-body:    'DM Sans', sans-serif;  /* body text */
 
-  /* Spacing */
-  --section-py:   120px;   /* vertical padding every section */
-  --page-px:      80px;    /* horizontal page padding desktop */
-  --page-px-md:   40px;    /* tablet */
-  --page-px-sm:   20px;    /* mobile */
+  /* ── Page-width system ──────────────────────────────────────────────
+     --page-width   : max content width across the whole site
+     --page-px      : left/right padding on desktop
+     --page-px-md   : left/right padding on tablet
+     --page-px-sm   : left/right padding on mobile
+     ──────────────────────────────────────────────────────────────── */
+  --page-width:  1280px;
+  --page-px:       80px;
+  --page-px-md:    40px;
+  --page-px-sm:    20px;
 
-  /* Page max-width — change once, applies everywhere */
-  --page-width:   1280px;
+  /* Section vertical rhythm */
+  --section-py: 120px;
 }
 
-/* ── Reset ────────────────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ─────────────────────────────────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin:     0;
+  padding:    0;
+}
 
 html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior:           smooth;
+  -webkit-font-smoothing:    antialiased;
+  -moz-osx-font-smoothing:   grayscale;
+  text-rendering:            optimizeLegibility;
 }
 
 body {
@@ -60,28 +112,25 @@ body {
   overflow-x:  hidden;
 }
 
-::selection { background: var(--accent); color: #000; }
+a { text-decoration: none; color: inherit; }
 
-::-webkit-scrollbar              { width: 4px; }
-::-webkit-scrollbar-track        { background: var(--bg); }
-::-webkit-scrollbar-thumb        { background: var(--border-2); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover  { background: var(--accent); }
-
+::selection          { background: var(--accent); color: #000; }
+::-webkit-scrollbar  { width: 4px; }
+::-webkit-scrollbar-track  { background: var(--bg); }
+::-webkit-scrollbar-thumb  { background: var(--border-2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline:        2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius:  4px;
 }
 
-a { text-decoration: none; }
-
-/* ── Page width utility ───────────────────────────────────────────────────── */
-/*
-  HOW IT WORKS:
-  Wrap any section's inner content with <div className="page-width">
-  It centers content and applies consistent horizontal padding.
-  Change --page-width or --page-px above and every section updates.
-*/
+/* ─────────────────────────────────────────────────────────────────────────
+   PAGE-WIDTH UTILITY
+   Usage in JSX: <div className="page-width"> ... </div>
+   Centers content, applies consistent horizontal padding.
+   Breakpoint overrides are at the bottom of this file.
+   ───────────────────────────────────────────────────────────────────── */
 .page-width {
   max-width: var(--page-width);
   width:     100%;
@@ -89,30 +138,101 @@ a { text-decoration: none; }
   padding:   0 var(--page-px);
 }
 
-@media (max-width: 1024px) { .page-width { padding: 0 var(--page-px-md); } }
-@media (max-width: 640px)  { .page-width { padding: 0 var(--page-px-sm); } }
-
-/* ── Section base ─────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+   SHARED SECTION BASE
+   ───────────────────────────────────────────────────────────────────── */
 .section {
-  padding: var(--section-py) 0;
+  padding:  var(--section-py) 0;
   position: relative;
 }
-
 .section--alt {
   background: var(--bg-2);
   border-top: 1px solid var(--border);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   HERO SECTION
-   Desktop: left column = eyebrow + headline + subtext + CTAs
-            right column = floating brand cards
-   Below both cols: trust badges row (centered)
-   Bottom of fold: stats bar
-   Mobile: single column, stacked, badges below CTAs, cards hidden
-   ───────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+   SHARED BUTTON SYSTEM
+   ─────────────────────────────────────────────────────────────────────
+   All buttons across the site use .btn as a base.
+   Modifiers (--gold, --wa, --ghost) apply the visual variant.
+   Modifier --full makes a button span full width of its parent.
 
-.hero-section {
+   HOW THE CTA LAYOUT WORKS:
+   .hero__cta-row uses display:grid with grid-template-columns:1fr 1fr
+   This makes each direct child exactly 50% of the parent width.
+   The phone button below uses .btn--full which is display:block width:100%.
+   ───────────────────────────────────────────────────────────────────── */
+.btn {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             8px;
+  padding:         13px 20px;
+  border-radius:   12px;
+  font-family:     var(--font-body);
+  font-size:       14px;
+  font-weight:     700;
+  cursor:          pointer;
+  transition:      opacity .2s, box-shadow .2s;
+  white-space:     nowrap;
+  border:          none;
+}
+
+.btn--gold {
+  background: linear-gradient(135deg, var(--accent) 0%, #7A5C0A 100%);
+  color:      #050505;
+  box-shadow: 0 4px 18px rgba(200,169,110,.22);
+}
+
+.btn--wa {
+  background: var(--wa-dim);
+  border:     1px solid var(--wa-border);
+  color:      var(--wa);
+}
+
+.btn--ghost {
+  background: rgba(255,255,255,.04);
+  border:     1px solid rgba(255,255,255,.1);
+  color:      var(--text-2);
+}
+
+/* Full-width button — spans the entire parent container */
+.btn--full {
+  display: flex;   /* keeps icon+text centered */
+  width:   100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════════════════
+
+   DESKTOP LAYOUT
+   ──────────────
+   .hero__split is a two-column grid (1fr 1fr).
+   Left col  (.hero__left)  → eyebrow pill + headline
+   Right col (.hero__right) → subtext + CTA grid + phone button
+
+   CTA LAYOUT (right column)
+   ──────────────────────────
+   .hero__cta-row  → grid with two equal columns (1fr 1fr)
+     child 1: .btn--gold    → 50% width (Get Free Quote)
+     child 2: .btn--wa      → 50% width (WhatsApp Us)
+   .btn--full below the row → 100% width (Call Us)
+
+   BELOW THE SPLIT
+   ───────────────
+   .hero__badges → trust badge pills, flex-wrap centered
+   .hero__stats  → 4-column stat bar at the bottom of the fold
+
+   MOBILE LAYOUT (≤ 768px)
+   ────────────────────────
+   Split collapses to single column.
+   Left col stacks above right col.
+   .hero__cta-row stays as 2 columns (buttons are wide enough).
+   .hero__stats collapses to 2×2.
+══════════════════════════════════════════════════════════════════════════ */
+
+.hero {
   position:        relative;
   min-height:      100vh;
   display:         flex;
@@ -121,44 +241,30 @@ a { text-decoration: none; }
   align-items:     center;
   overflow:        hidden;
   background:      var(--bg);
-
-  /* Space for fixed navbar (64px) + announcement bar (32px) */
-  padding-top:    112px;
-  padding-bottom: 100px;
-  gap:            0;
+  padding-top:     112px;   /* navbar (64) + announcement bar (32) + 16 buffer */
+  padding-bottom:  100px;
+  gap:             40px;    /* space between split, badges, stats */
 }
 
-/* ── Background layer ─────────────────────────────────────────────────────── */
-.hero-bg {
-  position: absolute;
-  inset:    0;
-}
+/* ── Background ─────────────────────────────────────────────────────────── */
+.hero__bg         { position: absolute; inset: 0; }
 
-.hero-bg-glow-left {
-  position:      absolute;
-  top:           -20%;
-  left:          -10%;
-  width:         55vw;
-  height:        55vw;
+.hero__bg-glow-l {
+  position:      absolute; top: -20%; left: -10%;
+  width: 55vw;   height: 55vw;
   border-radius: 50%;
-  background:    radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 68%);
+  background:    radial-gradient(circle, rgba(200,169,110,.08) 0%, transparent 68%);
   pointer-events:none;
 }
-
-.hero-bg-glow-right {
-  position:      absolute;
-  bottom:        -20%;
-  right:         -10%;
-  width:         45vw;
-  height:        45vw;
+.hero__bg-glow-r {
+  position:      absolute; bottom: -20%; right: -10%;
+  width: 45vw;   height: 45vw;
   border-radius: 50%;
-  background:    radial-gradient(circle, rgba(200,169,110,0.05) 0%, transparent 68%);
+  background:    radial-gradient(circle, rgba(200,169,110,.05) 0%, transparent 68%);
   pointer-events:none;
 }
-
-.hero-bg-grid {
-  position:   absolute;
-  inset:      0;
+.hero__bg-grid {
+  position:   absolute; inset: 0;
   background-image:
     linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
@@ -167,37 +273,24 @@ a { text-decoration: none; }
   pointer-events: none;
 }
 
-/* ── Inner two-column layout ──────────────────────────────────────────────── */
-/*
-  HOW THE GRID WORKS:
-  hero-inner is a two-column grid.
-  Left col (hero-left) gets 1.1fr — slightly wider, holds the text.
-  Right col (hero-right) gets 0.9fr — holds the floating brand cards.
-  On mobile (<= 900px) it collapses to 1 column, right col hides.
-*/
-.hero-inner {
-  position: relative;
-  z-index:  2;
-  width:    100%;
-  max-width:var(--page-width);
-  padding:  0 var(--page-px);
-
+/* ── Two-column split ───────────────────────────────────────────────────── */
+.hero__split {
   display:               grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap:                   64px;
+  grid-template-columns: 1fr 1fr;   /* equal halves of page-width */
+  gap:                   72px;
   align-items:           center;
+  width:                 100%;
 }
 
-/* ── Left column ──────────────────────────────────────────────────────────── */
-.hero-left {
+/* LEFT — eyebrow + headline, left-aligned */
+.hero__left {
   display:        flex;
   flex-direction: column;
-  align-items:    flex-start;   /* left-aligned text */
-  gap:            0;
+  align-items:    flex-start;
+  gap:            20px;
 }
 
-/* Eyebrow pill */
-.hero-eyebrow {
+.hero__eyebrow {
   display:       inline-flex;
   align-items:   center;
   gap:           8px;
@@ -205,10 +298,15 @@ a { text-decoration: none; }
   border-radius: 999px;
   background:    var(--accent-dim);
   border:        1px solid var(--accent-border);
-  margin-bottom: 24px;
+  font-family:   var(--font-body);
+  font-size:     11px;
+  font-weight:   600;
+  color:         var(--accent);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
 }
 
-.hero-eyebrow-dot {
+.hero__eyebrow-dot {
   display:       block;
   width:         6px;
   height:        6px;
@@ -217,223 +315,62 @@ a { text-decoration: none; }
   flex-shrink:   0;
 }
 
-.hero-eyebrow-text {
-  font-family:    var(--font-body);
-  font-size:      11px;
-  font-weight:    600;
-  color:          var(--accent);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
+/* Clip wrapper so the y:56→0 slide-up doesn't ghost outside */
+.hero__headline-clip { overflow: hidden; }
 
-/* Headline wrapper — clips the slide-up animation */
-.hero-headline-wrap {
-  overflow:      hidden;    /* needed so the y:80→0 slide doesn't flash */
-  margin-bottom: 22px;
-}
-
-/*
-  HOW FONT SIZE WORKS HERE:
-  font-size: clamp(MIN, PREFERRED, MAX)
-  - MIN  = 40px  — never smaller than this on any screen
-  - PREFERRED = 5.5vw — scales with viewport width
-  - MAX  = 64px  — capped at 64px on large screens
-  This replaces hardcoded px so it's automatically responsive.
-*/
-.hero-h1 {
+.hero__h1 {
   font-family:    var(--font-display);
-  font-size:      clamp(40px, 5.5vw, 64px);
+  font-size:      clamp(36px, 4.5vw, 64px);
   font-weight:    800;
-  line-height:    1.05;
+  line-height:    1.08;
   letter-spacing: -0.03em;
   color:          var(--text-1);
   display:        block;
 }
 
-/* Gold gradient variant for second headline line */
-.hero-h1-gradient {
-  background:              linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 50%, var(--accent) 100%);
+.hero__h1--gold {
+  background:              linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 55%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip:         text;
 }
 
-/* Subheading paragraph */
-.hero-sub {
+/* RIGHT — sub + CTAs */
+.hero__right {
+  display:        flex;
+  flex-direction: column;
+  gap:            16px;
+}
+
+.hero__sub {
   font-family: var(--font-body);
-  font-size:   clamp(15px, 1.4vw, 18px);
+  font-size:   clamp(15px, 1.3vw, 18px);
   font-weight: 400;
   color:       var(--text-3);
-  line-height: 1.7;
-  max-width:   480px;       /* keeps line length readable */
-  margin-bottom: 36px;
+  line-height: 1.75;
 }
 
-/* ── CTA row ──────────────────────────────────────────────────────────────── */
+/* ── CTA grid ───────────────────────────────────────────────────────────── */
 /*
-  Three CTAs sit in a flex row.
-  flex-wrap means they drop to next line on narrow screens rather than overflow.
+  grid-template-columns: 1fr 1fr
+  → each of the two buttons inside takes exactly 50% of .hero__right width
+  The phone button sits outside this grid with .btn--full for 100% width.
 */
-.hero-ctas {
-  display:     flex;
-  align-items: center;
-  gap:         12px;
-  flex-wrap:   wrap;   /* wraps to next line on small screens */
+.hero__cta-row {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   10px;
 }
 
-/* Shared CTA base */
-.cta-primary,
-.cta-whatsapp,
-.cta-ghost {
-  display:       flex;
-  align-items:   center;
-  gap:           8px;
-  padding:       13px 24px;
-  border-radius: 12px;
-  font-family:   var(--font-body);
-  font-size:     14px;
-  font-weight:   700;
-  cursor:        pointer;
-  transition:    opacity .2s;
-  white-space:   nowrap;
-}
-
-.cta-primary {
-  background:  linear-gradient(135deg, var(--accent) 0%, #7A5C0A 100%);
-  color:       #050505;
-  box-shadow:  0 4px 20px rgba(200,169,110,.22);
-}
-
-.cta-whatsapp {
-  background: var(--wa-dim);
-  border:     1px solid var(--wa-border);
-  color:      var(--wa);
-}
-
-.cta-ghost {
-  background: rgba(255,255,255,.04);
-  border:     1px solid rgba(255,255,255,.1);
-  color:      var(--text-2);
-}
-
-/* ── Right column — floating brand cards ─────────────────────────────────── */
-.hero-right {
-  position: relative;
-  display:  flex;
-  align-items: center;
+/* ── Trust badges ───────────────────────────────────────────────────────── */
+.hero__badges {
+  display:         flex;
+  flex-wrap:       wrap;
+  gap:             10px;
   justify-content: center;
-  min-height: 320px;
 }
 
-.hero-brand-stack {
-  position: relative;
-  width:    100%;
-  max-width:380px;
-}
-
-/* Both brand cards share this base */
-.hero-brand-card {
-  display:       flex;
-  align-items:   center;
-  gap:           16px;
-  padding:       20px 24px;
-  border-radius: 18px;
-  background:    rgba(255,255,255,.04);
-  border:        1px solid rgba(255,255,255,.09);
-  backdrop-filter: blur(12px);
-  box-shadow:    0 24px 48px rgba(0,0,0,.4);
-  width:         100%;
-  position:      relative;
-  z-index:       1;
-}
-
-.hero-brand-card--offset {
-  margin-top:  -12px;    /* overlaps the Apple card slightly */
-  margin-left:  32px;    /* offset right to create depth effect */
-  border-color: var(--accent-border);
-  background:   rgba(200,169,110,.04);
-}
-
-.hero-brand-icon {
-  width:          52px;
-  height:         52px;
-  border-radius:  14px;
-  background:     rgba(255,255,255,.06);
-  border:         1px solid rgba(255,255,255,.1);
-  display:        flex;
-  align-items:    center;
-  justify-content:center;
-  font-size:      22px;
-  flex-shrink:    0;
-}
-
-.hero-brand-icon--nothing {
-  background:   var(--accent-dim);
-  border-color: var(--accent-border);
-  color:        var(--accent);
-  font-size:    20px;
-}
-
-.hero-brand-name {
-  font-family:    var(--font-display);
-  font-size:      16px;
-  font-weight:    700;
-  color:          var(--text-1);
-  letter-spacing: -0.01em;
-}
-
-.hero-brand-tag {
-  font-family: var(--font-body);
-  font-size:   11px;
-  font-weight: 500;
-  color:       var(--text-3);
-  margin-top:  2px;
-  letter-spacing: 0.02em;
-}
-
-.hero-brand-badge {
-  margin-left:   auto;
-  font-size:     9px;
-  font-weight:   800;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  padding:       4px 10px;
-  border-radius: 999px;
-  background:    var(--accent-dim);
-  border:        1px solid var(--accent-border);
-  color:         var(--accent);
-  flex-shrink:   0;
-}
-
-/* Decorative glowing orb behind the cards */
-.hero-orb {
-  position:      absolute;
-  top:           50%;
-  left:          50%;
-  transform:     translate(-50%, -50%);
-  width:         280px;
-  height:        280px;
-  border-radius: 50%;
-  background:    radial-gradient(circle, rgba(200,169,110,.12) 0%, transparent 70%);
-  pointer-events:none;
-  z-index:       0;
-}
-
-/* ── Trust badges row — centered below both columns ──────────────────────── */
-.hero-badges-row {
-  position:       relative;
-  z-index:        2;
-  display:        flex;
-  flex-wrap:      wrap;
-  gap:            10px;
-  justify-content:center;
-  margin-top:     48px;
-  padding:        0 var(--page-px);
-  max-width:      var(--page-width);
-  width:          100%;
-}
-
-.hero-badge {
+.hero__badge {
   display:       flex;
   align-items:   center;
   gap:           8px;
@@ -443,59 +380,44 @@ a { text-decoration: none; }
   border:        1px solid rgba(255,255,255,.08);
 }
 
-.hero-badge-icon { font-size: 14px; }
-
-.hero-badge-text {
+.hero__badge-text {
   font-family: var(--font-body);
   font-size:   12px;
   font-weight: 500;
   color:       var(--text-3);
 }
 
-/* ── Stats bar — at bottom of hero, sits above fold edge ─────────────────── */
-/*
-  HOW "ABOVE THE FOLD" WORKS:
-  The section is min-height:100vh with padding-bottom:100px.
-  Stats sit at the bottom using margin-top:auto logic via flex column.
-  They appear at the fold edge — user sees them and knows to scroll.
-*/
-.hero-stats {
-  position:   relative;
-  z-index:    2;
-  width:      100%;
-  max-width:  var(--page-width);
-  padding:    0 var(--page-px);
-  margin-top: 56px;
-
+/* ── Stats bar ──────────────────────────────────────────────────────────── */
+.hero__stats {
   display:               grid;
   grid-template-columns: repeat(4, 1fr);
-  gap:                   1px;                      /* the gap creates divider lines */
-  background:            rgba(255,255,255,.06);    /* this shows as the divider colour */
+  gap:                   1px;                    /* gap = divider line colour */
+  background:            rgba(255,255,255,.07);  /* shows through gap as divider */
   border-radius:         16px;
   overflow:              hidden;
-  border:                1px solid rgba(255,255,255,.06);
+  border:                1px solid rgba(255,255,255,.07);
 }
 
-.hero-stat {
-  display:        flex;
-  flex-direction: column;
-  align-items:    center;
-  justify-content:center;
-  padding:        28px 16px;
-  background:     rgba(255,255,255,.02);  /* slightly lighter than the gap colour */
-  text-align:     center;
+.hero__stat {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  padding:         28px 16px;
+  background:      rgba(255,255,255,.02);
+  text-align:      center;
 }
 
-.hero-stat-value {
+.hero__stat-value {
   font-family:    var(--font-display);
-  font-size:      clamp(22px, 2.5vw, 32px);
+  font-size:      clamp(22px, 2.2vw, 32px);
   font-weight:    800;
   color:          var(--text-1);
   letter-spacing: -0.02em;
   line-height:    1;
 }
 
-.hero-stat-label {
+.hero__stat-label {
   font-family:    var(--font-body);
   font-size:      10px;
   font-weight:    500;
@@ -505,20 +427,19 @@ a { text-decoration: none; }
   text-transform: uppercase;
 }
 
-/* ── Scroll hint ──────────────────────────────────────────────────────────── */
-.hero-scroll-hint {
-  position:       absolute;
-  bottom:         28px;
-  left:           50%;
-  transform:      translateX(-50%);
-  display:        flex;
-  flex-direction: column;
-  align-items:    center;
-  gap:            8px;
-  z-index:        2;
+/* ── Scroll hint ────────────────────────────────────────────────────────── */
+.hero__scroll {
+  position:        absolute;
+  bottom:          28px;
+  left:            50%;
+  transform:       translateX(-50%);
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             8px;
+  z-index:         2;
 }
-
-.hero-scroll-text {
+.hero__scroll-label {
   font-family:    var(--font-body);
   font-size:      9px;
   font-weight:    600;
@@ -526,72 +447,66 @@ a { text-decoration: none; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
-
-.hero-scroll-line {
+.hero__scroll-line {
   width:      1px;
   height:     32px;
   background: linear-gradient(to bottom, var(--accent), transparent);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
-   Approach: desktop-first. We define the full desktop layout above,
-   then override only what needs to change at each breakpoint.
-   ───────────────────────────────────────────────────────────────────────── */
+   ─────────────────────────────────────────────────────────────────────────
+   Rule: we write desktop styles above, then override only what changes.
+   We never rewrite entire components — just the properties that shift.
+═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Tablet (≤ 1024px) ────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .hero-inner        { padding: 0 var(--page-px-md); gap: 40px; }
-  .hero-badges-row   { padding: 0 var(--page-px-md); }
-  .hero-stats        { padding: 0 var(--page-px-md); }
+  .page-width   { padding: 0 var(--page-px-md); }
+  .hero__split  { gap: 40px; }
 }
 
-/* ── Collapsed to single column (≤ 900px) ────────────────────────────────── */
+/* ── Single column (≤ 768px) ─────────────────────────────────────────────── */
 /*
-  MOBILE LAYOUT DECISION:
-  On mobile the right column (brand cards) is hidden — they look great
-  on desktop but take too much space on small screens. Instead we show
-  a compact brand pill strip below the CTAs. The headline and CTAs
-  become centered for a cleaner, app-like feel on phones.
+  MOBILE DECISION:
+  The two-column headline/content split collapses to a single column.
+  Left col (headline) stacks on top, right col (content) below.
+  Text alignment stays left — easier to read than centered on mobile.
+  Stats bar collapses to 2 columns (2×2 grid) to keep numbers readable.
+  The CTA row stays as 2 columns — buttons are comfortably wide enough.
 */
-@media (max-width: 900px) {
-  .hero-section      { padding-top: 100px; padding-bottom: 80px; }
+@media (max-width: 768px) {
+  .page-width { padding: 0 var(--page-px-sm); }
 
-  /* Switch to single column */
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap:    32px;
-    padding:0 var(--page-px-sm);
-    text-align: center;         /* center everything on mobile */
+  .hero {
+    padding-top:    96px;
+    padding-bottom: 80px;
+    gap:            32px;
   }
 
-  /* Center the left column content */
-  .hero-left  { align-items: center; }
-  .hero-sub   { max-width: 100%; text-align: center; }
-  .hero-ctas  { justify-content: center; }
+  .hero__split {
+    grid-template-columns: 1fr;   /* stack left above right */
+    gap:                   28px;
+  }
 
-  /* Hide right column on mobile */
-  .hero-right { display: none; }
-
-  /* Badges */
-  .hero-badges-row { padding: 0 var(--page-px-sm); margin-top: 32px; }
-
-  /* Stats: 2×2 grid on mobile */
-  .hero-stats {
+  /* Stats: 4 columns → 2 columns on mobile */
+  .hero__stats {
     grid-template-columns: repeat(2, 1fr);
-    padding: 0 var(--page-px-sm);
-    margin-top: 32px;
   }
 }
 
 /* ── Small phones (≤ 480px) ──────────────────────────────────────────────── */
+/*
+  On very small screens the two CTA buttons side by side get tight.
+  We collapse them to a single column so each button is full width.
+  The phone button was already full width so nothing changes for it.
+*/
 @media (max-width: 480px) {
-  /* CTAs stack vertically, full width */
-  .hero-ctas         { flex-direction: column; align-items: stretch; }
-  .cta-primary,
-  .cta-whatsapp,
-  .cta-ghost         { justify-content: center; }
+  .hero__cta-row {
+    grid-template-columns: 1fr;   /* each CTA becomes full width */
+  }
 
-  /* Tighten eyebrow text */
-  .hero-eyebrow-text { font-size: 10px; }
+  .hero__h1 {
+    font-size: clamp(32px, 9vw, 44px);
+  }
 }
