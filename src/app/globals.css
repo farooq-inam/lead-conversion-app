@@ -498,17 +498,24 @@ a { text-decoration: none; color: inherit; }
   .hero {
     padding-top:    96px;
     padding-bottom: 80px;
-    gap:            32px;
+    gap:            12px;
   }
 
   .hero__split {
     grid-template-columns: 1fr;   /* stack left above right */
     gap:                   28px;
+    padding-top: 25px;
   }
 
   /* Stats: 4 columns → 2 columns on mobile */
   .hero__stats {
     grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    width: 90vw;
+  }
+
+  .hero__scroll {
+    display: none;
   }
 }
 
@@ -526,7 +533,7 @@ a { text-decoration: none; color: inherit; }
   .hero__eyebrow {
     font-size: 9px;
   }
-  
+
   .hero__badges {
     display: none;
   } 
