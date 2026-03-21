@@ -610,6 +610,11 @@ export default function Navbar() {
         @media (min-width: 1280px) {
           .nav-phone { display: flex !important; }
         }
+        @media (max-width: 585px) {
+          header {
+            top: 48px;
+          }
+        }
         @media (min-width: 640px) {
           .nav-quote { display: flex !important; }
         }

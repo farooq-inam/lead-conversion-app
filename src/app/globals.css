@@ -476,6 +476,19 @@ a { text-decoration: none; color: inherit; }
   The CTA row stays as 2 columns — buttons are comfortably wide enough.
 */
 @media (max-width: 768px) {
+  .hero {
+    padding-top:    135px;
+  }
+
+  .single--input-parent-in-form {
+    grid-template-columns:1fr;
+  }
+
+  .form--parent {
+    padding: 36px 18px 32px;
+  }
+}
+@media (max-width: 768px) {
   .page-width { padding: 0 var(--page-px-sm); }
 
   .hero {

@@ -221,7 +221,7 @@ export default function LeadForm() {
   );
 
   return (
-    <div style={{
+    <div className="form--parent" style={{
       padding:"36px 36px 32px",
       borderRadius:20, background:"#0C0C0C",
       border:"1px solid rgba(255,255,255,0.08)",
@@ -242,7 +242,7 @@ export default function LeadForm() {
         }}>We'll respond with trade pricing within 2–4 hours.</p>
       </div>
 
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
+      <div className="single--input-parent-in-form" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
         <InputField label="First Name" id="firstName" value={form.firstName}
           onChange={set("firstName")} error={errors.firstName}
           placeholder="Ahmed" required/>
@@ -257,7 +257,7 @@ export default function LeadForm() {
           placeholder="0300 123 4567" required/>
       </div>
 
-      <div style={{ marginTop:14, display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
+      <div className="single--input-parent-in-form" style={{ marginTop:14, display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
         <InputField label="Business Name" id="businessName" value={form.businessName}
           onChange={set("businessName")} error={errors.businessName}
           placeholder="Your Shop / Company" required/>
