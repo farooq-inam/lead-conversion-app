@@ -432,10 +432,18 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
 /* ── Main Navbar ──────────────────────────────────────────────────────────── */
 export default function Navbar() {
   const [scrolled,   setScrolled]   = useState(false);
+  const [announcementH, setAnnouncementH] = useState(32);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", v => setScrolled(v > 40));
+
+  useEffect(() => {
+    const update = () => setAnnouncementH(window.innerWidth <= 585 ? 48 : 32);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -471,7 +479,7 @@ export default function Navbar() {
       {/* ── Nav bar ───────────────────────────────────────────────────── */}
       <motion.header
         initial={{ y:-80, opacity:0 }}
-        animate={{ y:0, opacity:1, top: scrolled ? 0 : 32 }}
+        animate={{ y:0, opacity:1, top: scrolled ? 0 : announcementH }}
         transition={{ duration:.55, ease:[.22,1,.36,1] }}
         style={{ position:"fixed", left:0, right:0, zIndex:30 }}
       >
@@ -609,11 +617,6 @@ export default function Navbar() {
         }
         @media (min-width: 1280px) {
           .nav-phone { display: flex !important; }
-        }
-        @media (max-width: 585px) {
-          header {
-            top: 48px !important;
-          }
         }
         @media (min-width: 640px) {
           .nav-quote { display: flex !important; }

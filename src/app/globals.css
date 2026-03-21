@@ -453,6 +453,10 @@ a { text-decoration: none; color: inherit; }
   background: linear-gradient(to bottom, var(--accent), transparent);
 }
 
+@media (min-width: 1024px) {
+  .hero__split {padding-bottom: 80px; padding-top: 60px;}
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
    ─────────────────────────────────────────────────────────────────────────
@@ -518,6 +522,14 @@ a { text-decoration: none; color: inherit; }
   .hero__cta-row {
     grid-template-columns: 1fr;   /* each CTA becomes full width */
   }
+
+  .hero__eyebrow {
+    font-size: 9px;
+  }
+  
+  .hero__badges {
+    display: none;
+  } 
 
   .hero__h1 {
     font-size: clamp(32px, 9vw, 44px);
