@@ -477,15 +477,15 @@ a { text-decoration: none; color: inherit; }
 */
 @media (max-width: 768px) {
   .hero {
-    padding-top:    135px;
+    padding-top:135px !important;
   }
 
   .single--input-parent-in-form {
-    grid-template-columns:1fr;
+    grid-template-columns:1fr !important;
   }
 
   .form--parent {
-    padding: 36px 18px 32px;
+    padding: 36px 18px 32px !important;
   }
 }
 @media (max-width: 768px) {

@@ -612,7 +612,7 @@ export default function Navbar() {
         }
         @media (max-width: 585px) {
           header {
-            top: 48px;
+            top: 48px !important;
           }
         }
         @media (min-width: 640px) {
