@@ -1,53 +1,37 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    FOOTER — footer.css
-   Import this in layout.tsx:  import "@/app/footer.css";
-   Or add @import "./footer.css"; at the top of globals.css
-
-   CONCEPT
-   ───────
-   The footer is a "detached card" — it floats above the page's dark base
-   with 90vw width, rounded corners, and a subtle border matching the
-   frosted header treatment. It never touches the screen edges.
-
-   MOBILE ACCORDION
-   ────────────────
-   On mobile the four link columns collapse into tap-to-expand accordions.
-   First group is open by default (defaultOpen={true} in the JSX).
-   Plus / minus icons toggle with Framer Motion AnimatePresence.
-   Desktop columns are hidden on mobile; accordion is hidden on desktop.
+   Import in layout.tsx: import "@/app/footer.css";
 ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Outer wrapper ────────────────────────────────────────────────────────── */
-/*
-  Full-width dark base so the page bottom doesn't look cut off.
-  The card floats inside this using margin:auto + padding.
-*/
+/* ── Outer wrapper ───────────────────────────────────────────────────────────
+   transparent — no black background, page bg shows through
+   just provides vertical padding so the card floats above the page bottom
+─────────────────────────────────────────────────────────────────────────── */
 .ftr {
-  background:   #000000;
-  padding:      40px 0 32px;
-  width:        100%;
+  background: transparent;
+  padding:    40px 0 40px;
+  width:      100%;
 }
 
-/* ── Detached card ────────────────────────────────────────────────────────── */
-/*
-  90vw width centred — never touches the screen edges.
-  Same frosted dark treatment as the sticky navbar.
-  Border matches --border token (rgba white, subtle).
-*/
+/* ── Detached card ───────────────────────────────────────────────────────────
+   90vw, centred, dark frosted glass matching the sticky navbar
+─────────────────────────────────────────────────────────────────────────── */
 .ftr__card {
-  width:         90vw;
-  max-width:     1280px;
-  margin:        0 auto;
-  background:    rgba(10, 10, 10, 0.88);
-  border:        1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  overflow:      hidden;
+  width:           90vw;
+  max-width:       1280px;
+  margin:          0 auto;
+  background:      rgba(10, 10, 10, 0.88);
+  border:          1px solid rgba(255, 255, 255, 0.08);
+  border-radius:   20px;
+  overflow:        hidden;
   backdrop-filter: blur(24px);
-  box-shadow:    0 -4px 48px rgba(0, 0, 0, 0.4);
-  padding:       48px 48px 0;
+  box-shadow:      0 8px 48px rgba(0, 0, 0, 0.45);
+  padding:         48px 48px 0;
 }
 
-/* ── Top section: brand col + link cols ──────────────────────────────────── */
+/* ── Top grid ────────────────────────────────────────────────────────────────
+   brand col on left, link cols on right
+─────────────────────────────────────────────────────────────────────────── */
 .ftr__top {
   display:               grid;
   grid-template-columns: 260px 1fr;
@@ -64,25 +48,24 @@
 }
 
 .ftr__logo-row {
-  display:        flex;
-  align-items:    center;
-  gap:            12px;
-  margin-bottom:  16px;
+  display:       flex;
+  align-items:   center;
+  gap:           12px;
+  margin-bottom: 16px;
 }
 
 .ftr__logo-mark {
-  position:      relative;
-  width:          34px;
-  height:         34px;
-  border-radius:  9px;
-  background:     linear-gradient(135deg, #C8A96E, #7A5C0A);
-  display:        flex;
-  align-items:    center;
-  justify-content:center;
-  flex-shrink:    0;
+  position:        relative;
+  width:           34px;
+  height:          34px;
+  border-radius:   9px;
+  background:      linear-gradient(135deg, #C8A96E, #7A5C0A);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
 }
 
-/* Inner dark inset of logo mark */
 .ftr__logo-mark::after {
   content:       '';
   position:      absolute;
@@ -92,13 +75,13 @@
 }
 
 .ftr__logo-inner {
-  font-family:    var(--font-display);
-  font-weight:    800;
-  font-size:      13px;
-  color:          #C8A96E;
-  line-height:    1;
-  position:       relative;
-  z-index:        1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size:   13px;
+  color:       #C8A96E;
+  line-height: 1;
+  position:    relative;
+  z-index:     1;
 }
 
 .ftr__logo-name {
@@ -129,7 +112,6 @@
   margin-bottom: 20px;
 }
 
-/* Socials row */
 .ftr__socials {
   display:       flex;
   gap:           8px;
@@ -137,40 +119,39 @@
 }
 
 .ftr__social {
-  width:          34px;
-  height:         34px;
-  border-radius:  9px;
-  display:        flex;
-  align-items:    center;
-  justify-content:center;
-  background:     rgba(255, 255, 255, 0.05);
-  border:         1px solid rgba(255, 255, 255, 0.08);
-  color:          #6E6E73;
-  text-decoration:none;
-  transition:     color .2s, border-color .2s;
+  width:           34px;
+  height:          34px;
+  border-radius:   9px;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      rgba(255, 255, 255, 0.05);
+  border:          1px solid rgba(255, 255, 255, 0.08);
+  color:           #6E6E73;
+  text-decoration: none;
+  transition:      color .2s, border-color .2s;
 }
 
 .ftr__social:hover {
-  color:         #C8A96E;
-  border-color:  rgba(200, 169, 110, 0.25);
+  color:        #C8A96E;
+  border-color: rgba(200, 169, 110, 0.25);
 }
 
-/* WhatsApp CTA */
 .ftr__wa {
-  display:        inline-flex;
-  align-items:    center;
-  gap:            8px;
-  padding:        10px 18px;
-  border-radius:  10px;
-  font-family:    var(--font-body);
-  font-size:      13px;
-  font-weight:    700;
-  background:     rgba(37, 209, 102, 0.1);
-  border:         1px solid rgba(37, 209, 102, 0.2);
-  color:          #25D166;
-  text-decoration:none;
-  transition:     background .2s;
-  width:          fit-content;
+  display:         inline-flex;
+  align-items:     center;
+  gap:             8px;
+  padding:         10px 18px;
+  border-radius:   10px;
+  font-family:     var(--font-body);
+  font-size:       13px;
+  font-weight:     700;
+  background:      rgba(37, 209, 102, 0.1);
+  border:          1px solid rgba(37, 209, 102, 0.2);
+  color:           #25D166;
+  text-decoration: none;
+  transition:      background .2s;
+  width:           fit-content;
 }
 
 .ftr__wa:hover { background: rgba(37, 209, 102, 0.16); }
@@ -200,18 +181,18 @@
 }
 
 .ftr__link {
-  font-family:    var(--font-body);
-  font-size:      13px;
-  font-weight:    400;
-  color:          #6E6E73;
-  text-decoration:none;
-  transition:     color .2s;
-  line-height:    1.5;
+  font-family:     var(--font-body);
+  font-size:       13px;
+  font-weight:     400;
+  color:           #6E6E73;
+  text-decoration: none;
+  transition:      color .2s;
+  line-height:     1.5;
 }
 
 .ftr__link:hover { color: #A1A1A6; }
 
-/* Mobile accordion — hidden on desktop */
+/* Mobile accordion — off on desktop */
 .ftr__cols-mobile { display: none; }
 
 /* ── Bottom bar ───────────────────────────────────────────────────────────── */
@@ -227,35 +208,35 @@
 .ftr__copy {
   font-family: var(--font-body);
   font-size:   12px;
-  font-weight: 400;
   color:       #3A3A3A;
 }
 
-.ftr__legal {
-  display: flex;
-  gap:     20px;
-}
+.ftr__legal { display: flex; gap: 20px; }
 
 .ftr__legal-link {
-  font-family:    var(--font-body);
-  font-size:      12px;
-  font-weight:    400;
-  color:          #3A3A3A;
-  text-decoration:none;
-  transition:     color .2s;
+  font-family:     var(--font-body);
+  font-size:       12px;
+  color:           #3A3A3A;
+  text-decoration: none;
+  transition:      color .2s;
 }
 
 .ftr__legal-link:hover { color: #6E6E73; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   MOBILE ACCORDION STYLES
+   ACCORDION — mobile only
+   No ghost borders: we use a single border-bottom on every item.
+   The first item gets a border-top ONLY when it's inside ftr__cols-mobile,
+   so no duplicate borders appear from hidden desktop elements.
 ═══════════════════════════════════════════════════════════════════════════ */
 
+/* Every accordion row has only a bottom border */
 .ftr__accordion {
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.ftr__accordion:first-child {
+/* Top border only on the very first accordion to close the section above */
+.ftr__cols-mobile > .ftr__accordion:first-child {
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
@@ -271,7 +252,7 @@
   text-align:      left;
 }
 
-/* Reuse the heading style but reset margin for accordion context */
+/* heading inside button — reset bottom margin that desktop version has */
 .ftr__accordion-btn .ftr__col-heading {
   margin-bottom: 0;
 }
@@ -280,9 +261,9 @@
   display:         flex;
   align-items:     center;
   justify-content: center;
-  width:           24px;
-  height:          24px;
-  border-radius:   6px;
+  width:           26px;
+  height:          26px;
+  border-radius:   7px;
   background:      rgba(255, 255, 255, 0.06);
   border:          1px solid rgba(255, 255, 255, 0.09);
   color:           #C8A96E;
@@ -294,10 +275,7 @@
   background: rgba(200, 169, 110, 0.1);
 }
 
-.ftr__accordion-body-wrap {
-  overflow: hidden;
-}
-
+/* Links inside open accordion */
 .ftr__accordion-body {
   display:        flex;
   flex-direction: column;
@@ -305,23 +283,20 @@
   padding-bottom: 14px;
 }
 
-/* Links inside accordion get a little left indent */
 .ftr__accordion-body .ftr__link {
-  padding: 6px 4px;
+  padding: 7px 4px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Tablet */
 @media (max-width: 1024px) {
-  .ftr__card           { padding: 40px 32px 0; }
-  .ftr__top            { grid-template-columns: 220px 1fr; gap: 40px; }
-  .ftr__cols-desktop   { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .ftr__card         { padding: 40px 32px 0; }
+  .ftr__top          { grid-template-columns: 200px 1fr; gap: 40px; }
+  .ftr__cols-desktop { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 }
 
-/* Mobile — single column, accordions replace desktop cols */
 @media (max-width: 768px) {
   .ftr__card {
     width:         90vw;
@@ -329,19 +304,22 @@
     border-radius: 16px;
   }
 
+  /* Stack brand above accordions */
   .ftr__top {
     grid-template-columns: 1fr;
-    gap:                   32px;
+    gap:                   0;
     padding-bottom:        0;
-    border-bottom:         none;
+    border-bottom:         none;   /* no border — accordion handles its own */
   }
 
+  /* Brand gets a bottom border to separate it from the accordions */
   .ftr__brand {
     padding-bottom: 28px;
     border-bottom:  1px solid rgba(255, 255, 255, 0.07);
+    margin-bottom:  4px;
   }
 
-  /* Hide desktop columns, show accordion */
+  /* Swap desktop cols for accordion */
   .ftr__cols-desktop { display: none; }
   .ftr__cols-mobile  { display: block; }
 
