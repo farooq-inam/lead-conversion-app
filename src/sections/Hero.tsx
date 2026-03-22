@@ -17,7 +17,7 @@ const badgehtml = `
 
 
 const BADGES = [
-  { icon: <Image src="/apple_179309.png" alt="apple" width={35} height={35}/>, text: "Apple Authorised Reseller"     },
+  { icon: <Image className="apple-icon" src="/apple_179309.png" alt="apple" width={35} height={35}/>, text: "Apple Authorised Reseller"     },
   { icon: "◎",  text: "Nothing Certified Distributor" },
   { icon: "🏆", text: "PTCL Verified Business"        },
 ];

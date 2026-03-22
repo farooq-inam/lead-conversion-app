@@ -877,10 +877,6 @@ a { text-decoration: none; color: inherit; }
   .cube__chip    { display: none; }   /* too cramped on very small screens */
 }
 
-.brands-section-brand--icon {
-  transform: rotateX('360deg');
-}
-
 
 
 @media (max-width: 480px) {

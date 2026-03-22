@@ -135,7 +135,6 @@ export default function Brands() {
                     padding:"4px 12px", borderRadius:999, marginBottom:12,
                     background:brand.accentDim, border:`1px solid ${brand.accentBorder}`,
                   }}>
-                    <span style={{ fontSize:12 }}>{brand.icon}</span>
                     <span style={{
                       fontFamily:"var(--font-body)", fontSize:10, fontWeight:700,
                       color:brand.accent, letterSpacing:"0.12em", textTransform:"uppercase"
@@ -148,7 +147,7 @@ export default function Brands() {
                     lineHeight:1,
                   }}>{brand.name}</h3>
                 </div>
-                <span style={{ fontSize:40, lineHeight:1, marginTop:4 }}>{brand.icon}</span>
+                <span className="brand-big--icon" style={{ fontSize:40, lineHeight:1, marginTop:4 }}>{brand.icon}</span>
               </div>
 
               <p style={{
