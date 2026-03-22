@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 const BRANDS = [
   {
     id: "apple",
     name: "Apple",
-    icon: " ",
+    icon: <Image src="/apple_179309.png" alt="apple" width={35} height={35}/>,
     tag: "Authorised Reseller",
     tagline: "The world's most trusted devices. Officially supplied.",
     accent: "#F5F5F7",
@@ -24,7 +25,7 @@ const BRANDS = [
   {
     id: "nothing",
     name: "Nothing",
-    icon: " ",
+    icon: "◎",
     tag: "Certified Distributor",
     tagline: "Transparent design. Distinct identity. Genuine stock.",
     accent: "#C8A96E",
@@ -147,7 +148,7 @@ export default function Brands() {
                     lineHeight:1,
                   }}>{brand.name}</h3>
                 </div>
-                <span className="brands-section-brand--icon" style={{ fontSize:40, lineHeight:1, marginTop:4 }}>{brand.icon}</span>
+                <span style={{ fontSize:40, lineHeight:1, marginTop:4 }}>{brand.icon}</span>
               </div>
 
               <p style={{

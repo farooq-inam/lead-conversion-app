@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from 'next/image';
 
 const STATS = [
   { value: "8+",     label: "Years Active"        },
@@ -16,7 +17,7 @@ const badgehtml = `
 
 
 const BADGES = [
-  { icon: badgehtml, text: "Apple Authorised Reseller"     },
+  { icon: <Image src="/apple_179309.png" alt="apple" width={35} height={35}/>, text: "Apple Authorised Reseller"     },
   { icon: "◎",  text: "Nothing Certified Distributor" },
   { icon: "🏆", text: "PTCL Verified Business"        },
 ];
