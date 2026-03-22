@@ -40,10 +40,10 @@ const LINK_GROUPS = [
   {
     heading: "Contact",
     links: [
-      { label: "📍  Hall Road, Lahore",   href: "#"                            },
-      { label: "📞  0300 123 4567",        href: "tel:+923001234567"            },
-      { label: "✉️  sales@horizontech.pk", href: "mailto:sales@horizontech.pk" },
-      { label: "⏰  Mon–Fri  9AM – 7PM",  href: "#"                            },
+      { label: "📍  Hall Road, Lahore",    href: "#"                            },
+      { label: "📞  0300 123 4567",         href: "tel:+923001234567"            },
+      { label: "✉️  sales@horizontech.pk",  href: "mailto:sales@horizontech.pk" },
+      { label: "⏰  Mon–Fri  9AM – 7PM",   href: "#"                            },
     ],
   },
 ];
@@ -82,34 +82,40 @@ const SOCIALS = [
   },
 ];
 
-/* ── Mobile accordion ─────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   AccordionGroup — controlled, no local state
+   isOpen and onToggle come from the parent Footer
+   This ensures only one is open at a time
+───────────────────────────────────────────────────────────────────────────── */
 function AccordionGroup({
   heading,
   links,
-  defaultOpen,
+  isOpen,
+  onToggle,
 }: {
-  heading: string;
-  links: { label: string; href: string }[];
-  defaultOpen: boolean;
+  heading:  string;
+  links:    { label: string; href: string }[];
+  isOpen:   boolean;
+  onToggle: () => void;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
-
   return (
     <div className="ftr__accordion">
       <button
         className="ftr__accordion-btn"
-        onClick={() => setOpen(o => !o)}
-        aria-expanded={open}
+        onClick={onToggle}
+        aria-expanded={isOpen}
       >
         <span className="ftr__col-heading">{heading}</span>
         <span className="ftr__accordion-icon">
-          {open ? (
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+          {isOpen ? (
+            /* Minus */
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"
               stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M2 7h10"/>
             </svg>
           ) : (
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+            /* Plus */
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"
               stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M7 2v10M2 7h10"/>
             </svg>
@@ -118,13 +124,14 @@ function AccordionGroup({
       </button>
 
       <AnimatePresence initial={false}>
-        {open && (
+        {isOpen && (
           <motion.div
+            key="body"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            exit={{   height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="ftr__accordion-body-wrap"
+            style={{ overflow: "hidden" }}
           >
             <div className="ftr__accordion-body">
               {links.map(l => (
@@ -140,13 +147,21 @@ function AccordionGroup({
   );
 }
 
-/* ── Footer ───────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Footer
+───────────────────────────────────────────────────────────────────────────── */
 export default function Footer() {
+  /* null = all closed on load — no auto-open */
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (i: number) =>
+    setOpenIndex(prev => (prev === i ? null : i));
+
   return (
-    /* Outer wrapper — full-width dark base so the page doesn't end abruptly */
+    /* Outer wrapper — transparent background, just provides bottom padding */
     <footer className="ftr">
 
-      {/* 90vw detached card, floating above the dark base */}
+      {/* 90vw detached card */}
       <div className="ftr__card">
 
         {/* ── Top: brand col + link cols ──────────────────────────── */}
@@ -154,7 +169,6 @@ export default function Footer() {
 
           {/* Brand column */}
           <div className="ftr__brand">
-            {/* Logo */}
             <div className="ftr__logo-row">
               <div className="ftr__logo-mark">
                 <div className="ftr__logo-inner">H</div>
@@ -170,18 +184,14 @@ export default function Footer() {
               and Nothing devices.
             </p>
 
-            {/* Socials */}
             <div className="ftr__socials">
               {SOCIALS.map(s => (
-                <a key={s.label} href={s.href}
-                  aria-label={s.label}
-                  className="ftr__social">
+                <a key={s.label} href={s.href} aria-label={s.label} className="ftr__social">
                   {s.icon}
                 </a>
               ))}
             </div>
 
-            {/* WhatsApp */}
             <motion.a
               href="https://wa.me/923001234567"
               target="_blank" rel="noopener noreferrer"
@@ -212,14 +222,15 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Mobile accordion columns — hidden on desktop */}
+          {/* Mobile accordions — hidden on desktop, controlled by openIndex */}
           <div className="ftr__cols-mobile">
             {LINK_GROUPS.map((g, i) => (
               <AccordionGroup
                 key={g.heading}
                 heading={g.heading}
                 links={g.links}
-                defaultOpen={i === 0}
+                isOpen={openIndex === i}
+                onToggle={() => toggle(i)}
               />
             ))}
           </div>
