@@ -23,7 +23,7 @@ export default function Credibility() {
   return (
     <section id="about" style={{
       background:"#050505",
-      padding:"120px 0",
+      padding:"80px 0",
       borderTop:"1px solid rgba(255,255,255,0.04)",
     }}>
       <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 24px" }}>

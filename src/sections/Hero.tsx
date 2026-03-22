@@ -10,8 +10,13 @@ const STATS = [
   { value: "100%",   label: "Genuine & Warranted"  },
 ];
 
+const badgehtml = `
+  <img src="src\app\apple_179309.png" class="apple-icon">
+`
+
+
 const BADGES = [
-  { icon: "🍎", text: "Apple Authorised Reseller"     },
+  { icon: badgehtml, text: "Apple Authorised Reseller"     },
   { icon: "◎",  text: "Nothing Certified Distributor" },
   { icon: "🏆", text: "PTCL Verified Business"        },
 ];
@@ -160,18 +165,27 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0  }}
         transition={{ delay: 0.9, duration: 0.65, ease: [0.22,1,0.36,1] }}
       >
-        {STATS.map((s, i) => (
-          <motion.div
-            key={s.label}
-            className="hero__stat"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.0 + i * 0.08 }}
-          >
-            <span className="hero__stat-value">{s.value}</span>
-            <span className="hero__stat-label">{s.label}</span>
-          </motion.div>
-        ))}
+        <motion.div
+          className="hero__stats-inner"
+          style={{ opacity: fadeOut }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0  }}
+          transition={{ delay: 0.9, duration: 0.65, ease: [0.22,1,0.36,1] }}
+        >
+
+          {STATS.map((s, i) => (
+            <motion.div
+              key={s.label}
+              className="hero__stat"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0 + i * 0.08 }}
+            >
+              <span className="hero__stat-value">{s.value}</span>
+              <span className="hero__stat-label">{s.label}</span>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
 
       {/* Scroll hint */}

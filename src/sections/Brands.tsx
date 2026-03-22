@@ -6,7 +6,7 @@ const BRANDS = [
   {
     id: "apple",
     name: "Apple",
-    icon: "🍎",
+    icon: " ",
     tag: "Authorised Reseller",
     tagline: "The world's most trusted devices. Officially supplied.",
     accent: "#F5F5F7",
@@ -24,7 +24,7 @@ const BRANDS = [
   {
     id: "nothing",
     name: "Nothing",
-    icon: "◎",
+    icon: " ",
     tag: "Certified Distributor",
     tagline: "Transparent design. Distinct identity. Genuine stock.",
     accent: "#C8A96E",
@@ -47,7 +47,7 @@ export default function Brands() {
       id="products"
       style={{
         background: "#050505",
-        padding: "120px 0",
+        padding: "80px 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -147,7 +147,7 @@ export default function Brands() {
                     lineHeight:1,
                   }}>{brand.name}</h3>
                 </div>
-                <span style={{ fontSize:40, lineHeight:1, marginTop:4 }}>{brand.icon}</span>
+                <span className="brands-section-brand--icon" style={{ fontSize:40, lineHeight:1, marginTop:4 }}>{brand.icon}</span>
               </div>
 
               <p style={{

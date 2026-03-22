@@ -88,7 +88,7 @@ export default function Services() {
   return (
     <section id="services" style={{
       background:"#080808",
-      padding:"120px 0",
+      padding:"60px 0",
       borderTop:"1px solid rgba(255,255,255,0.04)",
     }}>
       <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 24px" }}>

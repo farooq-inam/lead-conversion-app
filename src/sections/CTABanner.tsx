@@ -12,9 +12,10 @@ export default function CTABanner() {
     <section style={{
       background: "#050505",
       padding:    "0 24px 80px",
-    }}>
+    }} id="CTA-Banner">
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <motion.div
+          className="CTABANNER-Inner"
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -93,6 +94,7 @@ export default function CTABanner() {
               </motion.div>
 
               <motion.h2
+                className="ctabanner-heading"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -108,7 +110,7 @@ export default function CTABanner() {
                 }}
               >
                 Secure Your iPhone 16<br />
-                <span style={{
+                <span className="ctabanner-heading" style={{
                   background:            "linear-gradient(135deg,#C8A96E,#F0D898)",
                   WebkitBackgroundClip:  "text",
                   WebkitTextFillColor:   "transparent",

@@ -84,7 +84,7 @@
   --page-px-sm:    20px;
 
   /* Section vertical rhythm */
-  --section-py: 120px;
+  --section-py: 85px;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -370,6 +370,13 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
 }
 
+.hero__badge .apple-icon{
+  max-height: 25px;
+  width: auto;
+  object-fit: contain;
+}
+
+
 .hero__badge {
   display:       flex;
   align-items:   center;
@@ -388,7 +395,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ── Stats bar ──────────────────────────────────────────────────────────── */
-.hero__stats {
+.hero__stats .hero__stats-inner {
   display:               grid;
   grid-template-columns: repeat(4, 1fr);
   gap:                   1px;                    /* gap = divider line colour */
@@ -582,6 +589,12 @@ a { text-decoration: none; color: inherit; }
   align-items:           center;
 }
 
+@media screen and (min-width: 1350px) {
+  .cube__grid {
+    gap:                   115px;
+  }
+}
+
 /* ── Left column ──────────────────────────────────────────────────────────── */
 .cube__left {
   display:        flex;
@@ -670,7 +683,7 @@ a { text-decoration: none; color: inherit; }
 /* Sub paragraph */
 .cube__sub {
   font-family:   var(--font-body);
-  font-size:     clamp(14px, 1.2vw, 16px);
+  font-size:     clamp(12px, 1.2vw, 14px);
   font-weight:   400;
   color:         var(--text-3);
   line-height:   1.75;
@@ -681,7 +694,8 @@ a { text-decoration: none; color: inherit; }
 .cube__features {
   list-style:    none;
   display:       flex;
-  flex-direction:column;
+  flex-wrap: wrap;
+  /* flex-direction:column; */
   gap:           12px;
   margin-bottom: 36px;
 }
@@ -690,6 +704,9 @@ a { text-decoration: none; color: inherit; }
   display:     flex;
   align-items: center;
   gap:         12px;
+  width: calc(50% - 12px);
+  flex: 1;
+  min-width: calc(50% - 12px);
 }
 
 .cube__feature-icon {
@@ -858,4 +875,16 @@ a { text-decoration: none; color: inherit; }
   .cube__ctas    { flex-direction: column; align-items: stretch; }
   .cube__cta-primary { justify-content: center; }
   .cube__chip    { display: none; }   /* too cramped on very small screens */
+}
+
+.brands-section-brand--icon {
+  transform: rotateX('360deg');
+}
+
+
+
+@media (max-width: 480px) {
+  .CTABANNER-Inner {
+    padding: 32px 25px;
+  }
 }
