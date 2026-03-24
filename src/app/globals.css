@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+@import "tailwindcss";
+
+
+
+
 /* ═══════════════════════════════════════════════════════════════════════════
-   HORIZON TECH — globals.css
+   YELLOSTONE TECH — globals.css
    ───────────────────────────────────────────────────────────────────────────
 
    PHILOSOPHY
@@ -41,9 +47,6 @@
    No media queries needed for typography — one line does all screen sizes.
 
 ══════════════════════════════════════════════════════════════════════════ */
-
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
 /* ─────────────────────────────────────────────────────────────────────────
    DESIGN TOKENS
@@ -881,6 +884,24 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 480px) {
   .CTABANNER-Inner {
-    padding: 32px 25px;
+    padding: 32px 25px !important;
+  }
+
+  .CTABANNER-Content {
+    justify-content: center !important;
+  }
+  .CTABANNER-bottom-content {
+    min-width: 100% !important;
+  }
+  .CTABANNER-bottom-content-stats {
+    justify-content: center !important;
+  }
+
+  #about {
+    padding: 0 0 50px 0 !important;
+  }
+
+  #testimonials {
+    padding: 50px 0 !important;
   }
 }

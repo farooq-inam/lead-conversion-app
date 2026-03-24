@@ -171,10 +171,10 @@ export default function Footer() {
           <div className="ftr__brand">
             <div className="ftr__logo-row">
               <div className="ftr__logo-mark">
-                <div className="ftr__logo-inner">H</div>
+                <div className="ftr__logo-inner">Y</div>
               </div>
               <div>
-                <p className="ftr__logo-name">HORIZON TECH</p>
+                <p className="ftr__logo-name">YELLOSTONE TECH</p>
                 <p className="ftr__logo-sub">Official Distributor · Lahore</p>
               </div>
             </div>
@@ -239,7 +239,7 @@ export default function Footer() {
         {/* ── Bottom bar ──────────────────────────────────────────── */}
         <div className="ftr__bottom">
           <p className="ftr__copy">
-            © {new Date().getFullYear()} Horizon Tech Pvt. Ltd. · All rights reserved.
+            © {new Date().getFullYear()} Yellostone Tech Pvt. Ltd. · All rights reserved.
           </p>
           <div className="ftr__legal">
             {["Privacy Policy", "Terms of Service", "Refund Policy"].map(l => (

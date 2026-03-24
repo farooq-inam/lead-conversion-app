@@ -53,7 +53,7 @@ export default function CTABanner() {
             pointerEvents:   "none",
           }} />
 
-          <div style={{
+          <div className="CTABANNER-Content" style={{
             position:       "relative",
             zIndex:         1,
             display:        "flex",
@@ -140,6 +140,7 @@ export default function CTABanner() {
 
             {/* Right: action card */}
             <motion.div
+              className="CTABANNER-bottom-content"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -152,7 +153,7 @@ export default function CTABanner() {
               }}
             >
               {/* Stats */}
-              <div style={{
+              <div className="CTABANNER-bottom-content-stats" style={{
                 display:       "flex",
                 gap:           16,
                 marginBottom:  8,

@@ -82,11 +82,11 @@ export default function Credibility() {
                   <p style={{
                     fontFamily:"var(--font-display)", fontWeight:700,
                     fontSize:18, color:"#F5F5F7", letterSpacing:"-0.01em"
-                  }}>Ahmed Raza</p>
+                  }}>Fareed Ullah Jan</p>
                   <p style={{
                     fontFamily:"var(--font-body)", fontWeight:500,
                     fontSize:12, color:"#C8A96E", marginTop:2
-                  }}>CEO & Founder, Horizon Tech</p>
+                  }}>CEO & Founder, Yellostone Tech</p>
                 </div>
               </div>
 
@@ -94,7 +94,7 @@ export default function Credibility() {
                 fontFamily:"var(--font-body)", fontSize:14, fontWeight:400,
                 color:"#6E6E73", lineHeight:1.75, fontStyle:"italic",
               }}>
-                "I started Horizon Tech with one goal: bring genuine Apple and Nothing products
+                "I started Yellostone Tech with one goal: bring genuine Apple and Nothing products
                 to every retailer in Pakistan at honest prices. Eight years later, we've become
                 the most trusted distributor in Punjab — and we're just getting started."
               </p>

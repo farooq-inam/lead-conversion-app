@@ -82,7 +82,7 @@ const T = {
 /* ── Logo ─────────────────────────────────────────────────────────────────── */
 function Logo() {
   return (
-    <a href="/" aria-label="Horizon Tech Home"
+    <a href="/" aria-label="Yellostone Tech Home"
       style={{ display:"flex", alignItems:"center", gap:12, textDecoration:"none" }}>
       <div style={{ position:"relative", width:36, height:36 }}>
         <div style={{
@@ -97,14 +97,14 @@ function Logo() {
           <span style={{
             fontFamily:"var(--font-display)", fontWeight:800,
             fontSize:13, color:"#C8A96E", lineHeight:1
-          }}>H</span>
+          }}>Y</span>
         </div>
       </div>
       <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
         <span style={{
           fontFamily:"var(--font-display)", fontWeight:800,
           fontSize:13, letterSpacing:"0.07em", color: T.logoText,
-        }}>HORIZON TECH</span>
+        }}>YELLOSTONE TECH</span>
         <span style={{
           fontFamily:"var(--font-body)", fontWeight:500,
           fontSize:9, letterSpacing:"0.22em", textTransform:"uppercase",
@@ -265,7 +265,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                 <p style={{
                   fontFamily:"var(--font-display)", fontWeight:800,
                   fontSize:14, letterSpacing:"0.07em", color:"#F5F5F7",
-                }}>HORIZON TECH</p>
+                }}>YELLOSTONE TECH</p>
                 <p style={{
                   fontFamily:"var(--font-body)", fontSize:10,
                   letterSpacing:"0.2em", color:"#C8A96E",

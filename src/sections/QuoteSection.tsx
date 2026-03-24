@@ -38,8 +38,8 @@ const CONTACT_METHODS = [
       </svg>
     ),
     label: "Email",
-    value: "sales@horizontech.pk",
-    href: "mailto:sales@horizontech.pk",
+    value: "sales@yellostone.pk",
+    href: "mailto:sales@yellostone.pk",
     color: "#A1A1A6",
   },
   {
@@ -52,8 +52,8 @@ const CONTACT_METHODS = [
       </svg>
     ),
     label: "Address",
-    value: "Hall Road, Lahore, Punjab",
-    href: "https://maps.google.com/?q=Hall+Road+Lahore",
+    value: " Office: House No, 108-A Street 17, Extension Cavalry Ground, Lahore, Punjab",
+    href: "https://maps.app.goo.gl/BuisnFXwKZd2jUX26",
     color: "#A1A1A6",
   },
 ];
@@ -248,8 +248,8 @@ export default function QuoteSection() {
                 <p style={{
                   fontFamily:"var(--font-body)", fontSize:13, fontWeight:600,
                   color:"#A1A1A6"
-                }}>Hall Road, Lahore</p>
-                <a href="https://maps.google.com/?q=Hall+Road+Lahore"
+                }}>House No 108-A Street 17, Extension Cavalry Ground, Lahore</p>
+                <a href="https://maps.app.goo.gl/BuisnFXwKZd2jUX26"
                   target="_blank" rel="noopener noreferrer"
                   style={{
                     fontFamily:"var(--font-body)", fontSize:11, fontWeight:600,

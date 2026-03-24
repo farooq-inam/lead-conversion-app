@@ -89,7 +89,7 @@ export default function Brands() {
             fontFamily:"var(--font-body)", fontSize:17, fontWeight:400,
             color:"#6E6E73", maxWidth:520, margin:"0 auto", lineHeight:1.7,
           }}>
-            Horizon Tech is the only distributor in Lahore carrying both Apple and Nothing
+            Yellostone Tech is the only distributor in Lahore carrying both Apple and Nothing
             under one roof — with full official warranty coverage.
           </p>
         </motion.div>

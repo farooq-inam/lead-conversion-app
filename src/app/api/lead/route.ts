@@ -50,12 +50,12 @@ async function submitToHubSpotForm(data: Record<string, string>) {
     fields,
     context: {
       pageUri:  "https://horizontech.pk",
-      pageName: "Horizon Tech — Quote Form",
+      pageName: "Yellostone Tech — Quote Form",
     },
     legalConsentOptions: {
       consent: {
         consentToProcess: true,
-        text: "I agree to allow Horizon Tech to store and process my personal data.",
+        text: "I agree to allow Yellostone Tech to store and process my personal data.",
         communications: [
           {
             value: true,
